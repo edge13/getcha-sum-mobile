@@ -11,6 +11,10 @@ class Api
     options.path = "offers"
     @post options
 
+  getMyOffers: (options) ->
+    options.path = "users/me/offers"
+    @get options
+
   get: (options) ->
     @request "GET", options
 

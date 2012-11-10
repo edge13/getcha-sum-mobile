@@ -16,10 +16,13 @@ class AccountView extends ProgoView
       height: "30dip"
       title: "Connect to Twitter"
 
-    @dwolla.addEventListener "click", (event) ->
-      connectView.show
+    @dwolla.addEventListener "click", (event) =>
+      connect = new connectView
         url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=ApS2lLgIfKNXE4BbkuMS3rSs40XyEXvFqlc72nqJ9kTm7Tmrm6&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
-
+        close: @popModal
+        cancelUrl: "http://www.dwolla.com/"
+        
+      @showModal connect.view
     @twitter.addEventListener "click", (event) ->
      
 

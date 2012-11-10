@@ -1,5 +1,6 @@
 ProgoView = require "ProgoView"
 CreateView = require "CreateOffer"
+RefreshingTable = require "RefreshingTable"
 api = require "api"
 
 class MyOffersView extends ProgoView
@@ -15,23 +16,29 @@ class MyOffersView extends ProgoView
           do @onShow
       @showModal createView.view
 
-    @offersTable = Ti.UI.createTableView
+    @offersTable = new RefreshingTable
       top: "45dip"
       bottom: 0
-      minRowHeight: "40dip"
-      maxRowHeight: "40dip"
       backgroundColor: "pink"
 
-    @view.add @offersTable
+    @offersTable.beginReloading = @onShow
+    @offersTable.onRowClicked = (e) =>
+      #do something?
+      alert "you clicked an offer you own"
+
+    @view.add @offersTable.view
     @view.add createButton
 
-  onShow: ->
+  onShow: =>
     api.getMyOffers
       success: (offers) =>
+        @myOffers = offers
         rows = new Array()
         for offer in offers
           rows.push @createOfferRow offer
         @offersTable.setData rows
+        if @offersTable.reloading
+          do @offersTable.endReloading
         #add a bunch of rows
 
   createOfferRow: (offer) ->

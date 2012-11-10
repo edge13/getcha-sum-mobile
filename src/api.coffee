@@ -1,7 +1,7 @@
 class Api
   constructor: ->
     @host = "http://progoserver.appspot.com/"
-    @authHeader = undefined
+    @token = undefined
 
   login: (options) ->
     options.path = "users/login"
@@ -27,7 +27,7 @@ class Api
 
     client.open method, @host + options.path
     if @header
-      client.setRequestHeader "Authorization", @authHeader
+      client.setRequestHeader "Authorization", @token
     if options.data
       client.setRequestHeader "Content-Type", "application/json"
       Ti.API.info "Sending data: " + JSON.stringify options.data

@@ -55,7 +55,7 @@ LoginView = (function() {
           password: _this.password.value
         },
         success: function(response) {
-          api.authHeader = response.token;
+          api.token = response.token;
           return accountView.show();
         }
       });

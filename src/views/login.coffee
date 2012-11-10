@@ -47,7 +47,7 @@ class LoginView
           email: @email.value
           password: @password.value
         success: (response) ->
-          api.authHeader = response.token
+          api.token = response.token
           do accountView.show
 
     @window.add logo

@@ -1,6 +1,7 @@
 api = require "api"
 connectView = require "connect"
 ProgoView = require "ProgoView"
+Global = require "Global"
 
 class AccountView extends ProgoView
   constructor: ->

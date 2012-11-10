@@ -50,7 +50,7 @@ class LoginView
         success: (response) =>
           api.token = response.token
           api.getMe
-            success: (me) ->
+            success: (me) =>
               Global.me = me
               do TabBar.open
               do @window.close

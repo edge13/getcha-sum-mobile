@@ -2,7 +2,6 @@ ProgoView = require "ProgoView"
 rowFactory = require "RowFactory"
 OfferView = require "OfferView"
 api = require "api"
-
 RefreshingTable = require "RefreshingTable"
 
 class OffersList extends ProgoView

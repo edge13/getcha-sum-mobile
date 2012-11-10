@@ -1,5 +1,6 @@
 ProgoView = require "ProgoView"
 CreateView = require "CreateOffer"
+RefreshingTable = require "RefreshingTable"
 api = require "api"
 
 class MyOffersView extends ProgoView
@@ -8,23 +9,47 @@ class MyOffersView extends ProgoView
       title: "Create new offer"
       top: "5dip"
 
-    offersTable = Ti.UI.createScrollView
-      top: "45dip"
-      bottom: 0
-      layout: "vertical"
-      backgroundColor: "pink"
-
     createButton.addEventListener "click", (event) =>
       createView = new CreateView
-        close: @popModal
+        close: =>
+          do @popModal
+          do @onShow
       @showModal createView.view
 
-    @view.add createButton
-    @view.add offersTable
+    @offersTable = new RefreshingTable
+      top: "45dip"
+      bottom: 0
+      backgroundColor: "pink"
 
-  onShow: ->
+    @offersTable.beginReloading = @onShow
+    @offersTable.onRowClicked = (e) =>
+      #do something?
+      alert "you clicked an offer you own"
+
+    @view.add @offersTable.view
+    @view.add createButton
+
+  onShow: =>
     api.getMyOffers
-      success: (offers) ->
+      success: (offers) =>
+        @myOffers = offers
+        rows = new Array()
+        for offer in offers
+          rows.push @createOfferRow offer
+        @offersTable.setData rows
+        if @offersTable.reloading
+          do @offersTable.endReloading
         #add a bunch of rows
+
+  createOfferRow: (offer) ->
+    row = Ti.UI.createTableViewRow
+      height: "40dip"
+      
+    label = Ti.UI.createLabel
+      left: "10dip"
+      top: "5dip"
+      text: offer.name
+    row.add label
+    row
 
 module.exports = new MyOffersView()

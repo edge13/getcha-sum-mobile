@@ -1,13 +1,9 @@
 api = require "api"
 connectView = require "connect"
+ProgoView = require "ProgoView"
 
-class AccountView
-  constructor: ->
-    @window = Ti.UI.createWindow
-      width: "100%"
-      height: "100%"
-      backgroundColor: "#ffffff"
-
+class AccountView extends ProgoView
+  layout: ->  
     @dwolla = Ti.UI.createButton
       top: "20dip"
       width: "70%"
@@ -27,10 +23,7 @@ class AccountView
     @twitter.addEventListener "click", (event) ->
      
 
-    @window.add @dwolla
-
-  show: ->
-    do @window.open
+    @view.add @dwolla
 
 
 module.exports = new AccountView()

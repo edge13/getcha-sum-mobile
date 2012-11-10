@@ -1,5 +1,5 @@
-accountView = require "account"
 api = require "api"
+TabBar = require "TabBar"
 
 class LoginView
   constructor: ->
@@ -46,9 +46,10 @@ class LoginView
         data:
           email: @email.value
           password: @password.value
-        success: (response) ->
+        success: (response) =>
           api.token = response.token
-          do accountView.show
+          do TabBar.open
+          do @window.close
 
     @window.add logo
     @window.add @email

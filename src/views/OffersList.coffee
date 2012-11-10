@@ -17,4 +17,4 @@ class OffersList extends ProgoView
 
     @table.data = @rows
 
-module.exports = OffersList
+module.exports = new OffersList()

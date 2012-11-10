@@ -22,7 +22,6 @@ class ProgoView
   layout: ->
 
   onShow: ->
-    Ti.API.info "on show"
     
   showModal: (view) ->
     @views.push view

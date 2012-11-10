@@ -2,12 +2,29 @@ ModalView = require "ModalView"
 
 class OfferView extends ModalView
   layout: ->
+
+    offerNameLabel = Ti.UI.createLabel
+      text: "Offer name"
+      top: "20dp"
+      width: "100dp"
+      left: "10dp"
+
+    offerName = Ti.UI.createLabel
+      text: @options.offer.name
+      top: "20dp"
+      width: "180dp"
+      left: "140dp"
+
+    @view.add offerNameLabel
+    @view.add offerName
+
     offerTextArea = Ti.UI.createTextArea
       width: "80%"
       height: "200dp"
       editable: false
-      value: "this is a \n test \n description \n\n\n\n with multiple lines"
+      value: @options.offer.content
       top: "50dp"
+      backgroundColor: "transparent"
 
 
     @view.add offerTextArea

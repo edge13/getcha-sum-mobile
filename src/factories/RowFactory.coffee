@@ -5,9 +5,7 @@ module.exports.createOfferRow = (offer) ->
     height: "200dp"
 
   label = Ti.UI.createLabel
-    text: "this is an offer description"
-
-  
+    text: offer.content
 
   row.offer = offer
   row.add label

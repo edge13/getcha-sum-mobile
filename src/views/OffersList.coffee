@@ -1,27 +1,44 @@
 ProgoView = require "ProgoView"
 rowFactory = require "RowFactory"
 OfferView = require "OfferView"
+api = require "api"
+
+RefreshingTable = require "RefreshingTable"
 
 class OffersList extends ProgoView
   layout: ->
-    @table = Ti.UI.createTableView
+    @table = new RefreshingTable
       height: "100%"
       width: "100%"
       backgroundColor: "blue"
+  
+    @view.add @table.view
 
-    @view.add @table
-    @rows = new Array()
-
-    for i in [0..3]
-      @rows.push rowFactory.createOfferRow
-        test: "test"
-
-    @table.data = @rows
-
-    @table.addEventListener "click", (e) =>
+    @table.onRowClicked = (e) =>
       offer = new OfferView
         close: @popModal
         offer: e.rowData.offer
       @showModal offer.view
+
+    @table.beginReloading = @onShow
+
+  onShow: =>
+    api.getAllOffers
+      success: (data) =>
+        @showOffers data
+
+  showOffers: (@offers) ->
+    Ti.API.info "show"
+    @rows = new Array()
+
+    for offer in @offers
+      continue unless offer.content? or offer.content.length is 0
+      Ti.API.info offer
+      row = rowFactory.createOfferRow offer
+      @rows.push row
+
+    @table.setData @rows
+
+    do @table.endReloading if @table.reloading
 
 module.exports = new OffersList()

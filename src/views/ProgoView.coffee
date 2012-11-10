@@ -21,7 +21,9 @@ class ProgoView
 
   layout: ->
 
-
+  onShow: ->
+    Ti.API.info "on show"
+    
   showModal: (view) ->
     @views.push view
     @window.add view
@@ -31,6 +33,11 @@ class ProgoView
     view = do @views.pop
     @window.remove view
 
+  open: ->
+    do @window.open
+
+  close: ->
+    do @window.close
 
 
 module.exports = ProgoView

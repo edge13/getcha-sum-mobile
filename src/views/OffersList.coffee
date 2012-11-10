@@ -19,7 +19,6 @@ class OffersList extends ProgoView
     @table.data = @rows
 
     @table.addEventListener "click", (e) =>
-      Ti.API.info e.rowData
       offer = new OfferView
         close: @popModal
         offer: e.rowData.offer

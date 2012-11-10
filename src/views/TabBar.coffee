@@ -4,7 +4,7 @@ myoffers = require "myoffers"
 
 class TabBar
   constructor: ->
-    @windows = new Array()
+    @views = new Array()
     @selectedIndex = 0
 
     @window = Ti.UI.createWindow
@@ -42,9 +42,9 @@ class TabBar
     @tabBar.add @middleButton
     @tabBar.add @rightButton
 
-    @add account.window
-    @add myoffers.window
-    @add offers.window
+    @add account
+    @add myoffers
+    @add offers
     
 
     listener = (e) =>
@@ -56,18 +56,22 @@ class TabBar
 
     @window.add @tabBar
 
-  add: (window) ->
-    @windows.push window
+  add: (progoView) ->
+    @views.push progoView
 
-    if @windows.length is 1
-       do window.open
+    if @views.length is 1
+       do progoView.open
+       do progoView.onShow
 
   show: (index) ->
     return if index is @selectedIndex
 
-    do @windows[index].open
-    do @windows[@selectedIndex].close
+    do @views[index].open
+    do @views[@selectedIndex].close
     @selectedIndex = index
+
+    do @views[@selectedIndex].onShow
+
   open: ->
     do @window.open
 

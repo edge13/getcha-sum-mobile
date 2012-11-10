@@ -12,6 +12,6 @@ class MyOffersView extends ProgoView
         close: @popModal
       @showModal createView.view
 
-    @view.add @createButton
+    @view.add createButton
 
 module.exports = new MyOffersView()

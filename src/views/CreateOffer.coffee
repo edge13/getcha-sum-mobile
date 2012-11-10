@@ -1,4 +1,5 @@
 ProgoView = require "ProgoView"
+ModalView = require "ModalView"
 api = require "api"
 
 class CreateOffersView extends ModalView
@@ -62,4 +63,4 @@ class CreateOffersView extends ModalView
 
     @view.add @container
 
-module.exports = MyOffersView
+module.exports = CreateOffersView

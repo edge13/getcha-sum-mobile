@@ -38,6 +38,7 @@ class Api
         options.failure client.status, client.responseText
       timeout: 10000
 
+    Ti.API.info @host + options.path
     client.open method, @host + options.path
     if @token
       client.setRequestHeader "Authorization", @token

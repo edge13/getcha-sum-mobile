@@ -1,3 +1,6 @@
+accountView = require "account"
+api = require "api"
+
 class LoginView
   constructor: ->
     @window = Ti.UI.createWindow
@@ -18,6 +21,7 @@ class LoginView
       height: "40dip"
       borderWidth: "1dip"
       borderColor: "#000000"
+      value: "testuser@null.com"
 
     @password = Ti.UI.createTextField
       top: "140dip"
@@ -28,6 +32,7 @@ class LoginView
       height: "40dip"
       borderWidth: "1dip"
       borderColor: "#000000"
+      value: "password"
 
     @submit = Ti.UI.createButton
       top: "190dip"
@@ -35,8 +40,15 @@ class LoginView
       width: "200dip"
       title: "Submit"
 
-    @submit.addEventListener "click", (event) ->
-      Ti.API.info "Logging in"
+    @submit.addEventListener "click", (event) =>
+      Ti.API.info "Authenticating"
+      api.login
+        data:
+          email: @email.value
+          password: @password.value
+        success: (response) ->
+          api.authHeader = response.token
+          do accountView.show
 
     @window.add logo
     @window.add @email

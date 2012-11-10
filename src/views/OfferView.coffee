@@ -1,6 +1,6 @@
 ModalView = require "ModalView"
 OfferUtil = require "OfferUtil"
-Gobal = require "Global"
+Global = require "Global"
 
 class OfferView extends ModalView
   layout: ->

@@ -33,10 +33,12 @@ class AccountView extends ProgoView
       connect = new connectView
         url: "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + api.host + "callbacks/singly/" + api.token + "&service=twitter"
         close: @popModal
-        cancelUrl: "https://api.twitter.com/oauth/authenticate"
       @showModal connect.view
       
     @view.add @dwolla
     @view.add @twitter
+
+
+  onShow: ->
 
 module.exports = new AccountView()

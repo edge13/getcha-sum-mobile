@@ -1,5 +1,6 @@
 api = require "api"
 TabBar = require "TabBar"
+Global = require "Global"
 
 class LoginView
   constructor: ->
@@ -48,8 +49,11 @@ class LoginView
           password: @password.value
         success: (response) =>
           api.token = response.token
-          do TabBar.open
-          do @window.close
+          api.getMe
+            success: (me) ->
+              Global.me = me
+              do TabBar.open
+              do @window.close
 
     @window.add logo
     @window.add @email

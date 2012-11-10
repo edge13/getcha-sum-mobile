@@ -28,12 +28,10 @@ class OffersList extends ProgoView
         @showOffers data
 
   showOffers: (@offers) ->
-    Ti.API.info "show"
     @rows = new Array()
 
     for offer in @offers
       continue unless offer.content? or offer.content.length is 0
-      Ti.API.info offer
       row = rowFactory.createOfferRow offer
       @rows.push row
 

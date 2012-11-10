@@ -1,12 +1,13 @@
-ProgoView = require "ProgoView"
+ModalView = require "ModalView"
 
-class OfferView extends ProgoView
-
+class OfferView extends ModalView
   layout: ->
-    label = Ti.UI.createLabel
-      text: "offersview"
+    button = Ti.UI.createButton
+      title: "back"
 
-    @view.add label
+    button.addEventListener "click", @options.close
+
+    @view.add button
 
 
 module.exports = OfferView

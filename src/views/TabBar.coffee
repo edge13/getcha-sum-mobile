@@ -1,4 +1,5 @@
 account = require "account"
+offers = require "OffersList"
 
 class TabBar
   constructor: ->
@@ -41,7 +42,8 @@ class TabBar
     @tabBar.add @rightButton
 
     @add account.window
-
+    @add offers.window
+    
     listener = (e) =>
       @show e.source.index
 

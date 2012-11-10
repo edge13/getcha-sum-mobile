@@ -1,5 +1,6 @@
 ProgoView = require "ProgoView"
 rowFactory = require "RowFactory"
+OfferView = require "OfferView"
 
 class OffersList extends ProgoView
   layout: ->
@@ -16,5 +17,12 @@ class OffersList extends ProgoView
         test: "test"
 
     @table.data = @rows
+
+    @table.addEventListener "click", (e) =>
+      Ti.API.info e.rowData
+      offer = new OfferView
+        close: @popModal
+        offer: e.rowData.offer
+      @showModal offer.view
 
 module.exports = new OffersList()

@@ -6,7 +6,7 @@ module.exports.createOfferRow = (offer) ->
 
   label = Ti.UI.createLabel
     text: "test row"
-
+  row.offer = offer
   row.add label
 
   row

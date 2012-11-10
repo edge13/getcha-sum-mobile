@@ -1,6 +1,6 @@
 class Api
   constructor: ->
-    @host = "http://localhost:9000/"#progoserver.appspot.com/"
+    @host = "http://progoserver.appspot.com/"
     @token = undefined
 
   login: (options) ->
@@ -31,6 +31,7 @@ class Api
         alert "Api error"
         Ti.API.info "Error status: " + client.status
         Ti.API.info "Error text:" + client.responseText
+        options.failure client.status, client.responseText
       timeout: 10000
 
     client.open method, @host + options.path

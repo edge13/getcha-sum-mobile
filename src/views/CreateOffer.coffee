@@ -6,7 +6,7 @@ class CreateOffersView extends ModalView
   layout: ->
     @types = ["TWITTER"]
 
-    @container = Ti.UI.createScrollView
+    container = Ti.UI.createScrollView
       width: "100%"
       height: "100%"
       contentWidth: "100%"
@@ -58,19 +58,52 @@ class CreateOffersView extends ModalView
       offer.type = "TWITTER"
       offer.price = parseFloat @price.value
       offer.cap = parseInt @count.value
+      @confirm offer
 
-      api.createOffer
-        data: offer
-        success: (response) =>
-          do @options.close
+    container.add @instruct
+    container.add @name
+    container.add @price
+    container.add @content
+    container.add @count
+    container.add @submit
 
-    @container.add @instruct
-    @container.add @name
-    @container.add @price
-    @container.add @content
-    @container.add @count
-    @container.add @submit
+    @view.add container
 
-    @view.add @container
+  confirm: (offer) ->
+    container = Ti.UI.createView
+      width: "100%"
+      height: "100%"
+      backgroundColor: "green"
+
+    instruct = Ti.UI.createLabel
+      text: "Confirm your PIN"
+      top: "10dip"
+
+    pin = Ti.UI.createTextField
+      width: "90%"
+      top: "30dip"
+      height: "50dip"
+      font:
+        fontSize: "25sp"
+      passwordMask: true
+      borderColor: "#000000"
+      borderWidth: "1dip"
+
+    pin.addEventListener "change", (event) =>
+      if pin.value.length is 4
+        #show spinner
+        offer.pin = pin.value
+        api.createOffer
+          data: offer
+          success: (response) =>
+            do @options.close
+          failure: (code, text) =>
+            @view.remove container
+
+    container.add instruct
+    container.add pin
+    @view.add container
+
+    do pin.focus
 
 module.exports = CreateOffersView

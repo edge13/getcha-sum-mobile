@@ -1,0 +1,21 @@
+*class
+*.DS_STORE
+*.zip
+!sdk/*.zip
+sdk/mobilesdk*/
+sdk/mobilesdk*/**
+sdk/modules*/
+sdk/modules*/**
+build.log
+build/*
+.settings/*
+*.js
+!static_server.js
+Resources/config/static_server_config.json
+!Resources/libs/*
+!app.js
+# Package Files #
+*.jar
+*.war
+*.ear
+*.project

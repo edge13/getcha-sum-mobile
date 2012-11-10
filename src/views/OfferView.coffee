@@ -1,4 +1,6 @@
 ModalView = require "ModalView"
+OfferUtil = require "OfferUtil"
+Gobal = require "Global"
 
 class OfferView extends ModalView
   layout: ->
@@ -7,6 +9,9 @@ class OfferView extends ModalView
       top: "20dp"
       width: "100dp"
       left: "10dp"
+
+    eligible = OfferUtil.eligible Global.me, @options.offer
+    Ti.API.info "eligible=" + eligible
 
     offerName = Ti.UI.createLabel
       text: @options.offer.name

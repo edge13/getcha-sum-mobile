@@ -1,6 +1,6 @@
 class Api
   constructor: ->
-    @host = "http://progoserver.appspot.com/"
+    @host = "http://localhost:9000/"#progoserver.appspot.com/"
     @token = undefined
 
   login: (options) ->

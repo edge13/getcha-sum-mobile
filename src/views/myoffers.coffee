@@ -22,8 +22,9 @@ class MyOffersView extends ProgoView
     @view.add createButton
     @view.add offersTable
 
-    #api.getMyOffers
-    #  success: (offers) ->
-    #add a bunch of rows
+  onShow: ->
+    api.getMyOffers
+      success: (offers) ->
+        #add a bunch of rows
 
 module.exports = new MyOffersView()

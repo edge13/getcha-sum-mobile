@@ -35,6 +35,7 @@ class Api
         alert "Api error"
         Ti.API.info "Error status: " + client.status
         Ti.API.info "Error text:" + client.responseText
+        options.failure client.status, client.responseText
       timeout: 10000
 
     client.open method, @host + options.path

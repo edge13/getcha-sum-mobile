@@ -11,7 +11,7 @@ class LoginView
     logo = Ti.UI.createLabel
       top: "30dip"
       left: "30dip"
-      text: "POGO"
+      text: "PROGO"
 
     @email = Ti.UI.createTextField
       top: "90dip"

@@ -1,64 +1,17 @@
 ProgoView = require "ProgoView"
+CreateView = require "CreateOffer"
 api = require "api"
 
 class MyOffersView extends ProgoView
   layout: ->
-    @types = ["TWITTER"]
+    createButton = Ti.UI.createButton
+      title: "Create new offer"
 
-    @container = Ti.UI.createScrollView
-      width: "100%"
-      height: "100%"
-      contentWidth: "100%"
-      contentHeight: "100%"
+    createButton.addEventListener "click", (event) =>
+      createView = new CreateView
+        close: @popModal
+      @showModal createView.view
 
-    @instruct = Ti.UI.createLabel
-      top: "5dip"
-      text: "Create an offer"
-
-    @content = Ti.UI.createTextArea
-      width: "90%"
-      height: "60dip"
-      top: "30dip"
-      hintText: "content"
-      borderColor: "#000000"
-      borderWidth: "1dip"
-      suppressReturn: false
-
-    @price = Ti.UI.createTextField
-      top: "120dip"
-      keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
-      hintText: "Price per"
-      borderColor: "#000000"
-      borderWidth: "1dip"
-
-    @count = Ti.UI.createTextField
-      top: "140dip"
-      keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
-      hintText: "Count"
-      borderColor: "#000000"
-      borderWidth: "1dip"      
-
-    @submit = Ti.UI.createButton
-      top: "160dip"
-      title: "Submit"
-
-    @submit.addEventListener "click", (event) =>
-      offer = {}
-      offer.content = @content.value
-      offer.type = "TWITTER"
-      offer.price = parseFloat @price.value
-      offer.cap = parseInt @count.value
-
-      api.createOffer
-        data: offer
-        success: (response) ->
-
-    @container.add @instruct
-    @container.add @price
-    @container.add @content
-    @container.add @count
-    @container.add @submit
-
-    @view.add @container
+    @view.add @createButton
 
 module.exports = new MyOffersView()

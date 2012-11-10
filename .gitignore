@@ -10,7 +10,6 @@ build.log
 build/*
 .settings/*
 *.js
-Resource/js/*
 !static_server.js
 Resources/config/static_server_config.json
 !Resources/libs/*

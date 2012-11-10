@@ -1,4 +1,5 @@
 ProgoView = require "ProgoView"
+api = require "api"
 
 class MyOffersView extends ProgoView
   layout: ->
@@ -41,7 +42,16 @@ class MyOffersView extends ProgoView
       top: "160dip"
       title: "Submit"
 
-    @submit.addEventListener
+    @submit.addEventListener "click", (event) =>
+      offer = {}
+      offer.content = @content.value
+      offer.type = "TWITTER"
+      offer.price = parseFloat @price.value
+      offer.cap = parseInt @count.value
+
+      api.createOffer
+        data: offer
+        success: (response) ->
 
     @container.add @instruct
     @container.add @price

@@ -8,7 +8,7 @@ class Api
     @post options
 
   createOffer: (options) ->
-    options.path = ""
+    options.path = "offers"
     @post options
 
   get: (options) ->

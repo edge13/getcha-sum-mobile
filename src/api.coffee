@@ -7,6 +7,10 @@ class Api
     options.path = "users/login"
     @post options
 
+  createOffer: (options) ->
+    options.path = ""
+    @post options
+
   get: (options) ->
     @request "GET", options
 

@@ -4,7 +4,8 @@ ProgoView = require "ProgoView"
 
 class AccountView extends ProgoView
   layout: ->  
-
+    @view.layout = "vertical"
+    
     @dwolla = Ti.UI.createButton
       width: "70%"
       height: "30dip"

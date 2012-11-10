@@ -7,6 +7,10 @@ class Api
     options.path = "users/login"
     @post options
 
+  createOffer: (options) ->
+    options.path = "offers"
+    @post options
+
   get: (options) ->
     @request "GET", options
 
@@ -26,7 +30,7 @@ class Api
       timeout: 10000
 
     client.open method, @host + options.path
-    if @header
+    if @token
       client.setRequestHeader "Authorization", @token
     if options.data
       client.setRequestHeader "Content-Type", "application/json"

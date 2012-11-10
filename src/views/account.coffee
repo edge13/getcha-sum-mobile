@@ -4,14 +4,14 @@ ProgoView = require "ProgoView"
 
 class AccountView extends ProgoView
   layout: ->  
+    @view.layout = "vertical"
+    
     @dwolla = Ti.UI.createButton
-      top: "20dip"
       width: "70%"
       height: "30dip"
       title: "Connect to Dwolla"
 
     @twitter = Ti.UI.createButton
-      top: "50dip"
       width: "70%"
       height: "30dip"
       title: "Connect to Twitter"
@@ -23,10 +23,15 @@ class AccountView extends ProgoView
         cancelUrl: "http://www.dwolla.com/"
         
       @showModal connect.view
-    @twitter.addEventListener "click", (event) ->
-     
 
+    @twitter.addEventListener "click", (event) =>
+      connect = new connectView
+        url: "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + api.host + "callbacks/singly/" + api.token + "&service=twitter"
+        close: @popModal
+      @showModal connect.view
+      
     @view.add @dwolla
+    @view.add @twitter
 
 
 module.exports = new AccountView()

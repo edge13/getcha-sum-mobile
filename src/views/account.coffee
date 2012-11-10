@@ -3,7 +3,12 @@ connectView = require "connect"
 ProgoView = require "ProgoView"
 
 class AccountView extends ProgoView
-  layout: ->  
+  constructor: ->
+    super
+    @dwollaId = "ApS2lLgIfKNXE4BbkuMS3rSs40XyEXvFqlc72nqJ9kTm7Tmrm6"
+    @singlyId = "54e441cddf0c4c2cf1bc54de317913df"
+
+  layout: ->
     @view.layout = "vertical"
     
     @dwolla = Ti.UI.createButton
@@ -18,7 +23,7 @@ class AccountView extends ProgoView
 
     @dwolla.addEventListener "click", (event) =>
       connect = new connectView
-        url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=ApS2lLgIfKNXE4BbkuMS3rSs40XyEXvFqlc72nqJ9kTm7Tmrm6&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
+        url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
         close: @popModal
         cancelUrl: "http://www.dwolla.com/"
         
@@ -32,6 +37,5 @@ class AccountView extends ProgoView
       
     @view.add @dwolla
     @view.add @twitter
-
 
 module.exports = new AccountView()

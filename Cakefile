@@ -10,7 +10,7 @@ excluded_js_sources = [
     'app.js',
     'static_server.js'
 ]
-require_proof_dirs = ["libs"]
+require_proof_dirs = ["libs", "com"]
 output_filters = ['[DEBUG]', '[TRACE]']
 
 pwd = "`pwd`"

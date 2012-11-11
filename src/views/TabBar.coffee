@@ -1,6 +1,7 @@
 AccountView = require "AccountView"
 OffersListView = require "OffersListView"
 MyOffersView = require "MyOffersView"
+Pusher = require "Pusher"
 
 class TabBar
   constructor: ->

@@ -46,6 +46,7 @@ class CreateOfferView extends ModalView
     @price = Ti.UI.createTextField
       top: "160dip"
       keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
       left: "75dp"
       height: "22dp"
       backgroundImage: "createOffer/text-createofferprice.png"
@@ -54,6 +55,16 @@ class CreateOfferView extends ModalView
       font:
         fontSize: "27sp"
         fontFamily: "Arvil"
+
+    @centLabel = Ti.UI.createLabel
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+      text: "¢"
+      top: "157dp"
+      color: "#d2dd26"
+      left: "300dp"
+      font:
+        fontFamily: "Avenir LT Std"
+        fontSize: "27sp"
 
     @countLabel = Ti.UI.createLabel
       text: "TO THE FIRST"
@@ -66,6 +77,7 @@ class CreateOfferView extends ModalView
 
     @count = Ti.UI.createTextField
       color: "white"
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
       top: "195dp"
       keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
       backgroundImage: "createOffer/text-createoffermax.png"
@@ -211,6 +223,7 @@ class CreateOfferView extends ModalView
     container.add @usersLabel
     container.add @contentBg
     container.add @content
+    container.add @centLabel
 
     @view.add container
 

@@ -1,6 +1,6 @@
 module.exports.createOfferRow = (offer) ->
 
-  row = Ti.UI.createTableViewRow
+  row = Ti.UI.createView
     width: "100%"
     height: "200dp"
 

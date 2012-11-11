@@ -42,7 +42,7 @@ class MyOffersView extends ProgoView
         #add a bunch of rows
 
   createOfferRow: (offer) ->
-    row = Ti.UI.createTableViewRow
+    row = Ti.UI.createView
       height: "40dip"
       
     label = Ti.UI.createLabel

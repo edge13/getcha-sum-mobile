@@ -12,6 +12,7 @@ class ConnectView extends ModalView
     web.addEventListener "beforeload", (event) =>
       Ti.API.info "before load url = " + event.url
       if event.url.substring(0, api.host.length) is api.host
+        Ti.API.info "shoudl close?"
         do @options.close
       if event.url is @options.cancelUrl
         do @options.close

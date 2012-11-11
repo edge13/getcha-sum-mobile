@@ -59,10 +59,6 @@ class TabBar
   add: (progoView) ->
     @views.push progoView
 
-    if @views.length is 1
-       do progoView.open
-       do progoView.onShow
-
   show: (index) ->
     return if index is @selectedIndex
 
@@ -74,8 +70,11 @@ class TabBar
 
   open: ->
     do @window.open
+    do @views[@selectedIndex].open
+    do @views[@selectedIndex].onShow
 
   close: ->
     do @window.close
+    do @views[@selectedIndex].close
 
 module.exports = new TabBar()

@@ -1,7 +1,17 @@
+Global = require "Global"
+
 class Api
   constructor: ->
     @host = "http://progoserver.appspot.com/"
     @token = undefined
+    @dwollaId = "ApS2lLgIfKNXE4BbkuMS3rSs40XyEXvFqlc72nqJ9kTm7Tmrm6"
+    @singlyId = "54e441cddf0c4c2cf1bc54de317913df"
+
+  buildSinglyUrlForService: (service) ->
+    if Global.me? and Global.me.singlyAccessToken?
+      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&access_token=#{Global.me.singlyAccessToken}" + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
+    else
+      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + api.host + "callbacks/singly/" + api.token + "&service=#{service}"
 
   login: (options) ->
     options.path = "users/login"

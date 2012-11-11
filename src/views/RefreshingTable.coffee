@@ -162,6 +162,7 @@ class IOSTable extends RefreshingTable
     for dat in data
       row = Ti.UI.createTableViewRow
         height: dat.height
+        selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
       row.offer = dat.offer
       row.add dat
       @rows.push row

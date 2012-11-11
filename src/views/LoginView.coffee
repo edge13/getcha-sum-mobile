@@ -13,6 +13,9 @@ class LoginView
       top: "30dip"
       left: "30dip"
       text: "PROGO"
+      font:
+        fontFamily: "Avenir LT Std"
+        fontSize: "30sp"
 
     @email = Ti.UI.createTextField
       top: "90dip"

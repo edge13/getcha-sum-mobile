@@ -26,56 +26,18 @@ class AccountView extends ProgoView
       width: "100%"
       top: "25dp"
 
-
-    @dwolla = Ti.UI.createButton
-      top: "70dp"
-      left: "30dp"
-      width: "65dp"
-      height: "65dp"
-      title: "Dwolla"
-
-    @twitter = Ti.UI.createButton
-      top: "70dp"
-      left: "110dp"
-      width: "65dp"
-      height: "65dp"
-      title: "Twitter"
-
-    @facebook = Ti.UI.createButton
-      top: "70dp"
-      left: "190dp"
-      width: "65dp"
-      height: "65dp"
-      title: "FB"
-
-    #access_token
-    @facebook.addEventListener "click", (event) =>
-      connect = new connectView
-        url: api.buildSinglyUrlForService "facebook"
-        close: @popModal
-      @showModal connect.view
-
-    @dwolla.addEventListener "click", (event) =>
-      connect = new connectView
-        url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
-        close: =>
-          @popModal
-          @updateSeletions
-        cancelUrl: "http://www.dwolla.com/"
-        
-      @showModal connect.view
-
-    @twitter.addEventListener "click", (event) =>
-      connect = new connectView
-        url: api.buildSinglyUrlForService "twitter"
-        close: =>
-          @popModal
-          @updateSeletions
-      @showModal connect.view
+    @dwolla = @buttonForService "dwolla", 0
+    @twitter = @buttonForService "twitter", 1
+    @facebook = @buttonForService "facebook", 2
+    @linkedin = @buttonForService "linkedin", 3
+    @tumblr = @buttonForService "tumblr", 4
 
     @buttonsView.add @facebook
     @buttonsView.add @dwolla
     @buttonsView.add @twitter
+    @buttonsView.add @linkedin
+    @buttonsView.add @tumblr
+
     @containerView.add @buttonsView
 
     @divider = Ti.UI.createView
@@ -95,11 +57,43 @@ class AccountView extends ProgoView
 
     @containerView.add @demoLabel
 
-
+    
     @view.add @containerView
 
+  buttonForService: (service, index) ->
+    vertSpacing = 10
+    horizSpacing = 15 
 
-  updateSeletions: ->
+    button = Ti.UI.createButton
+      top: 70 * (Math.floor(index/3) + 1) + vertSpacing * Math.floor(index/3) + "dp"
+      left: 40 + 65 * (index % 3) + horizSpacing * (index % 3) + "dp"
+      width: "65dp"
+      height: "65dp"
+      title: service
+
+    if service is "dwolla"
+      button.addEventListener "click", (event) =>
+        connect = new connectView
+          url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
+          close: =>
+            @popModal
+            @updateSeletions
+          cancelUrl: "http://www.dwolla.com/"
+          
+        @showModal connect.view
+    else
+      button.addEventListener "click", (event) =>
+        connect = new connectView
+          url: api.buildSinglyUrlForService service
+          close: do =>
+            @popModal
+            @updateSeletions
+        @showModal connect.view
+
+    button
+
+
+  updateSeletions: =>
     Ti.API.info Global.me
 
     @emailLabel.text =  "Account #{Global.me.email}"

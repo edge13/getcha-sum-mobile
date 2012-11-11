@@ -57,7 +57,7 @@ class AccountView extends ProgoView
 
     @dwolla.addEventListener "click", (event) =>
       connect = new connectView
-        url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
+        url: do api.buildDwollaUrl
         close: =>
           @popModal
           @updateSeletions

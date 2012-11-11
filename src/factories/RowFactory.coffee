@@ -71,14 +71,14 @@ module.exports.createOfferRow = (offer) ->
       fontFamily: "Avenir LT Std"
       fontSize: "30sp"
 
-###
+  ###
   cent = Ti.UI.createImageView
     left: "36dip"
     image: "/cent.png"
     width: "24dip"
     height: "10dip"
     top: "52dip"
-###
+  ###
 
   row.offer = offer
   row.add title

@@ -1,5 +1,5 @@
 ProgoView = require "ProgoView"
-CreateView = require "CreateOffer"
+CreateOfferView = require "CreateOfferView"
 RefreshingTable = require "RefreshingTable"
 api = require "api"
 

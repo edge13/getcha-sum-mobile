@@ -1,6 +1,6 @@
-account = require "account"
-offers = require "OffersList"
-myoffers = require "myoffers"
+AccountView = require "AccountView"
+OffersListView = require "OffersListView"
+MyOffersView = require "MyOffersView"
 
 class TabBar
   constructor: ->
@@ -42,10 +42,9 @@ class TabBar
     @tabBar.add @middleButton
     @tabBar.add @rightButton
 
-    @add account
-    @add myoffers
-    @add offers
-    
+    @add MyOffersView
+    @add OffersListView
+    @add AccountView
 
     listener = (e) =>
       @show e.source.index

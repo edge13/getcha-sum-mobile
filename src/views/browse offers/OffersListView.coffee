@@ -1,6 +1,6 @@
 ProgoView = require "ProgoView"
 rowFactory = require "RowFactory"
-OfferView = require "OfferView"
+OfferDetailView = require "OfferDetailView"
 api = require "api"
 RefreshingTable = require "RefreshingTable"
 
@@ -14,7 +14,7 @@ class OffersList extends ProgoView
     @view.add @table.view
 
     @table.onRowClicked = (e) =>
-      offer = new OfferView
+      offer = new OfferDetailView
         close: @popModal
         offer: e.rowData.offer
       @showModal offer.view

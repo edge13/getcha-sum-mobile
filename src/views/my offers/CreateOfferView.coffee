@@ -2,7 +2,7 @@ ProgoView = require "ProgoView"
 ModalView = require "ModalView"
 api = require "api"
 
-class CreateOffersView extends ModalView
+class CreateOfferView extends ModalView
   layout: ->
     @types = ["TWITTER"]
 
@@ -106,4 +106,4 @@ class CreateOffersView extends ModalView
 
     do pin.focus
 
-module.exports = CreateOffersView
+module.exports = CreateOfferView

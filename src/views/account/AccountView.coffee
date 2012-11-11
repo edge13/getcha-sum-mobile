@@ -1,5 +1,5 @@
 api = require "api"
-connectView = require "connect"
+ConnectView = require "ConnectView"
 ProgoView = require "ProgoView"
 Global = require "Global"
 UserUtil = require "UserUtil"
@@ -31,7 +31,6 @@ class AccountView extends ProgoView
     @facebook = @buttonForService "facebook", 2
     @linkedin = @buttonForService "linkedin", 3
     @tumblr = @buttonForService "tumblr", 4
-
 
     @buttonsView.add @facebook
     @buttonsView.add @dwolla

@@ -2,7 +2,7 @@ ModalView = require "ModalView"
 Global = require "Global"
 api = require "api"
 
-class OfferView extends ModalView
+class OfferDetailView extends ModalView
   layout: ->
     @offer = @options.offer
     ###
@@ -106,4 +106,4 @@ class OfferView extends ModalView
       do @options.close
     , 3000
 
-module.exports = OfferView
+module.exports = OfferDetailView

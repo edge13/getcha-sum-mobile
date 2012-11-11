@@ -1,0 +1,222 @@
+<h1>pusher Module</h1>
+
+<h2>Description</h2>
+
+<p>This module allows you to tap into the <a href="http://pusher.com">pusher</a>
+service directly into your Titanium Mobile applications.</p>
+
+<h2>Installation</h2>
+
+<p>Please follow the guide <a href="http://wiki.appcelerator.org/display/tis/Using+Titanium+Modules">here</a>.</p>
+
+<h2>Changelog</h2>
+
+<p>Please see the <a href="changelog.html">changelog file</a>.</p>
+
+<h2>Accessing the pusher Module</h2>
+
+<p>To access this module from JavaScript, you would do the following:</p>
+
+<pre><code>var Pusher = require("com.pusher");
+</code></pre>
+
+<p>The Pusher variable is a reference to the Module object.    </p>
+
+<p><strong>Please notice that besides the <code>Pusher.setup</code> call, you should just use the official Pusher JS
+documentation, because it's plain better than this, and the API is almost compatible :)</strong></p>
+
+<h2>Reference</h2>
+
+<h3>Pusher.setup(pusher_key, [{options}])</h3>
+
+<p>This should be the first function you should call on the module, and it will
+configure the Pusher module with the appropriate credentials. It accepts a Pusher
+key as the first argument, and an optional object with options.</p>
+
+<ul>
+<li><p><strong>key</strong> [string, required]: The Pusher key credential for your application</p></li>
+<li><p><strong>options</strong> [object, optional]: An object with advanced options:</p>
+
+<ul>
+<li><strong>appID</strong> [string, optional]: The Pusher appID. Only required if you want
+to send events from the client</li>
+<li><strong>secret</strong> [string, optional]: The Pusher secret. Only required if you want
+to send events from the client</li>
+<li><strong>reconnectAutomatically</strong> [boolean, optional]: Set to <code>false</code> if you don't
+want the module to automatically reconnect to the Pusher servers when
+the connection goes down. Default value is <code>true</code></li>
+<li><strong>reconnectDelay</strong> [integer, optional]: The number of seconds this module will
+wait before it tries to reconnect with the Pusher servers. Default value is
+<code>5</code> seconds</li>
+<li><strong>encrypted</strong> [boolean, optional]: Configures a Pusher instance to only
+connect over encrypted (SSL) connections. An application that uses SSL
+should use this option to ensure connection traffic is encrypted. Default
+is <code>true</code>.</li>
+<li><strong>auth</strong> [object, optional]: The auth option lets you send additional
+information with the authentication request. The properties available on
+the <code>auth</code> option are as follows:
+<ul>
+<li><strong>headers</strong> [object]: Provides the ability to pass additional HTTP
+Headers to the channel authentication endpoint when authenticating a
+channel</li>
+<li><strong>params</strong> [object]: Additional parameters to be sent when the
+channel authentication endpoint is called.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>Pusher.configure('pusher_key_deadbeef', {
+  appID: 'your app ID',
+  secret: 'your secret',
+  reconnectAutomatically: true,
+  reconnectDelay: 5,
+  encrypted: true,
+  auth: {
+    headers: {
+      CSRFToken: 'some_csrf_token'
+    },
+    params: {
+      param1: 'value1',
+      param2: 'value2'
+    }
+  }
+});
+</code></pre>
+
+<p>When you call this function, the module immediately tries to connect to Pusher.</p>
+
+<h3>Pusher.connect()</h3>
+
+<p>Initiate the connection with the Pusher servers. Please notice that the 
+connection doesn't become immediately ready! You should wait for the
+"connected" event (see below) before you start subscribing and/or sending
+messages to Pusher.</p>
+
+<p>Example:</p>
+
+<pre><code>Pusher.connect();
+</code></pre>
+
+<h3>Pusher.disconnect()</h3>
+
+<p>Manually disconnects from the Pusher server.</p>
+
+<p>Example:</p>
+
+<pre><code>Pusher.disconnect();
+</code></pre>
+
+<h3>Pusher.subscribe(channelName) [returns a channel object]</h3>
+
+<p>Subscribes to a channel. The first and only argument is a String, required,
+and corresponds to the channel name you want to subscribe.</p>
+
+<p>Example:</p>
+
+<pre><code>var channel = Pusher.subscribe('test');
+</code></pre>
+
+<p>Please notice that this method returns a <code>Channel</code> object. For more 
+information about that object see the <a href="channel.html">Channel documentation</a>.</p>
+
+<p>Also, please notice that after this line, the client isn't immediately binded to
+the channel. You must wait for the <code>pusher:subscription_succeeded</code> event on the channel
+(more on that on the Channel documentation).</p>
+
+<h3>Pusher.unsubscribe(channelName)</h3>
+
+<p>Unsubscribes from a channel. The first and only argument is a String, required,
+and corresponds to the channel name you want to unsubscribe form.</p>
+
+<h3>Pusher.bind('event', callback);</h3>
+
+<p>If you want to bind to an event, regardless of the channel, you should
+use this function. You enter the event name as the first argument, and
+a callback function on the second argument.</p>
+
+<p>The event parameter passed on the callback function contains only the data
+object sent on that message (the payload) already parsed and ready to use.</p>
+
+<p>Example:</p>
+
+<pre><code>Pusher.bind('testingevent', function(data) {
+  Ti.API.warn("Received test event with payload " + data);
+});
+</code></pre>
+
+<p>Please notice that to stop receiving events on that callback, you should
+use the <code>unbind</code> function.</p>
+
+<h3>Pusher.unbind('event', callback)</h3>
+
+<p>Unbinds a specific callback from a previously binded event.</p>
+
+<h3>Pusher.sendEvent(eventName, channelName, data)</h3>
+
+<p>Sends an event to a channel.</p>
+
+<ul>
+<li><strong>eventName</strong> [string, required] is the name of the event to fire</li>
+<li><strong>channelName</strong> [string, required] is the name of channel to send the event</li>
+<li><strong>data</strong> [dictionary, required] is the payload you want to send with the message</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>Pusher.sendEvent('eventname', 'test', {foo: 'bar', zbr: 123});
+</code></pre>
+
+<p>Please notice that, to use this method, you have to provide both the <strong>appID</strong>
+and the <strong>secret</strong> on the configure function above.</p>
+
+<h3>Pusher.bind_all(callback)</h3>
+
+<p>It is possible to bind to all events at either the global or channel level by using the method bind_all. This is used for debugging, but may have other utilities.</p>
+
+<p>Example:</p>
+
+<pre><code>Pusher.bind_all(function(name, data) {
+  Ti.API.warn("Received event named " + name);
+  Ti.API.warn("DATA: " + JSON.stringify(data));
+});
+</code></pre>
+
+<h2>Properties</h2>
+
+<h3>state</h3>
+
+<p>Returns the current connection state as a string.</p>
+
+<h2>Events</h2>
+
+<h3>connected</h3>
+
+<p>Fired when the Pusher module successfully connects and handshakes with the
+Pusher servers.</p>
+
+<h3>disconnected</h3>
+
+<p>Fired when Pusher disconnects from the server. If <code>reconnectAutomatically</code> was
+<code>true</code>, Pusher will automatically try to call the server again.</p>
+
+<h3>connecting</h3>
+
+<h3>initialized</h3>
+
+<p>Fired when Pusher is in a configured state, ready to connect.</p>
+
+<h3>bind_all</h3>
+
+<p>If you bind the event named <code>bind_all</code> you will automatically receive all
+the events that your device receives, regardless of the event name or the
+channel where it was fired. Useful for debugging purposes.</p>
+
+<h2>Usage</h2>
+
+<p>Please see the <code>example/app.js</code> file included with this module.</p>
+
+<h2>Author</h2>
+
+<p>Ruben Fonseca <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x66;&#x6f;&#x6e;&#115;&#101;&#107;a&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x66;&#x6f;&#x6e;&#115;&#101;&#107;a&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>

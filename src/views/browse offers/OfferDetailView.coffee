@@ -28,18 +28,13 @@ class OfferDetailView extends ModalView
         fontSize: "27sp"
         fontFamily: "Arvil"
 
-    type = Ti.UI.createImageView
-      left: "10%"
-      top: "120dip"
-      width: "60dip"
-      height: "60dip"
-      backgroundColor: "pink"
-
     price = Ti.UI.createLabel
       top: "70dip"
       right: "67%"
+      left: 0
       text: @offer.price
       color: "#d2dd26"
+      textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT
       font:
         fontSize: "150sp"
         fontFamily: "Arvil"
@@ -50,7 +45,8 @@ class OfferDetailView extends ModalView
       image: "/offerdetail/cent.png"
 
     earnThat = Ti.UI.createLabel
-      left: "40dip"
+      center:
+        x: "24%"
       top: "195dip"
       text: "EARN THAT"
       color: "#d82a2a"
@@ -64,12 +60,14 @@ class OfferDetailView extends ModalView
     Ti.API.info "progress=" + progress
 
     progressBackground = Ti.UI.createImageView
-      right: "25dip"
+      center:
+        x: "76%"
       top: "70dip"
       image: "/offerdetail/progress-bg.png"
 
     progressImage = Ti.UI.createImageView
-      right: "25dip"
+      center:
+        x: "76%"
       top: "70dip"
       image: "/offerdetail/progress-" + progress + ".png"
 
@@ -80,28 +78,34 @@ class OfferDetailView extends ModalView
 
     progressLabel = Ti.UI.createLabel
       text: @offer.acceptedCount + " OUT OF " + @offer.cap
-      right: "40dip"
+      center:
+        x: "76%"
       top: "195dip"
       color: "#d82a2a"
       font:
         fontFamily: "Arvil"
         fontSize: "18sp"
 
-    offerName = Ti.UI.createLabel
-      text: @offer.name
+    offerName = Ti.UI.createTextArea
+      value: @offer.name
       top: "240dip"
-      left: "25dip"
-      right: "25dip"
+      left: "10dip"
+      right: "10dip"
       color: "#ffffff"
+      font:
+        fontSize: "18sp"
+      backgroundColor: "transparent"
 
     offerTextArea = Ti.UI.createTextArea
       editable: false
       value: @offer.content
-      top: "280dip"
-      left: "25dip"
-      right: "25dip"
+      top: "270dip"
+      left: "10dip"
+      right: "10dip"
       color: "#999999"
-      #backgroundColor: "transparent"
+      font:
+        fontSize: "18sp"
+      backgroundColor: "transparent"
 
     accept.addEventListener "click", (e) =>
       if @offer.type is "twilio"

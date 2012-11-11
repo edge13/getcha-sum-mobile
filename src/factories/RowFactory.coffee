@@ -62,7 +62,7 @@ module.exports.createOfferRow = (offer) ->
 
   price = Ti.UI.createLabel
     textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
-    text: offer.price
+    text: offer.price + "¢"
     top: "48dip"
     color: "#d2dd26"
     center:
@@ -71,18 +71,20 @@ module.exports.createOfferRow = (offer) ->
       fontFamily: "Avenir LT Std"
       fontSize: "30sp"
 
+###
   cent = Ti.UI.createImageView
     left: "36dip"
     image: "/cent.png"
     width: "24dip"
     height: "10dip"
     top: "52dip"
+###
 
   row.offer = offer
   row.add title
   row.add content
   row.add border
   row.add price
-  row.add cent
+  #row.add cent
 
   row

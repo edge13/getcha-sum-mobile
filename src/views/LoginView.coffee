@@ -10,9 +10,10 @@ class LoginView
       backgroundImage: "/background.png"
 
     logo = Ti.UI.createLabel
-      top: "30dip"
+      top: "40dip"
       left: "30dip"
-      text: "PROGO"
+      text: "The Quick brown fox"
+      color: "white"
       font:
         fontFamily: "Avenir LT Std"
         fontSize: "30sp"

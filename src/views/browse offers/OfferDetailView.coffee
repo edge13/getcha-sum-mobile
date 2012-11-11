@@ -51,8 +51,8 @@ class OfferDetailView extends ModalView
       text: "EARN THAT"
       color: "#d82a2a"
       font:
-        fontFamily: "Arvil"
-        fontSize: "18sp"
+        fontFamily: "Avenir LT Std"
+        fontSize: "12sp"
 
     progress = Math.max(1, Math.round((@offer.acceptedCount / @offer.cap) * 10))
     
@@ -83,17 +83,18 @@ class OfferDetailView extends ModalView
       top: "195dip"
       color: "#d82a2a"
       font:
-        fontFamily: "Arvil"
-        fontSize: "18sp"
+        fontFamily: "Avenir LT Std"
+        fontSize: "12sp"
 
     offerName = Ti.UI.createTextArea
-      value: @offer.name
+      value: do @offer.name.toUpperCase
       top: "240dip"
       left: "10dip"
       right: "10dip"
       color: "#ffffff"
       font:
         fontSize: "18sp"
+        fontFamily: "Avenir LT Std"
       backgroundColor: "transparent"
 
     offerTextArea = Ti.UI.createTextArea
@@ -105,6 +106,7 @@ class OfferDetailView extends ModalView
       color: "#999999"
       font:
         fontSize: "18sp"
+        fontFamily: "Avenir LT Std"
       backgroundColor: "transparent"
 
     accept.addEventListener "click", (e) =>

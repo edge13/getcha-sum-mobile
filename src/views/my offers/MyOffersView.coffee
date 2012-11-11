@@ -10,7 +10,7 @@ class MyOffersView extends ProgoView
       top: "5dip"
 
     createButton.addEventListener "click", (event) =>
-      createView = new CreateView
+      createView = new CreateOfferView
         close: =>
           do @popModal
           do @onShow

@@ -1,6 +1,5 @@
 *class
 *.DS_STORE
-*.zip
 !sdk/*.zip
 sdk/mobilesdk*/
 sdk/mobilesdk*/**

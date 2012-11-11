@@ -1,13 +1,14 @@
 ModalView = require "ModalView"
-OfferUtil = require "OfferUtil"
 Global = require "Global"
 api = require "api"
 
 class OfferView extends ModalView
   layout: ->
     @offer = @options.offer
+    ###
     @eligible = OfferUtil.eligible Global.me, @options.offer
     Ti.API.info "eligible=" + @eligible
+    ###
 
     offerName = Ti.UI.createTextArea
       value: @offer.name
@@ -47,16 +48,16 @@ class OfferView extends ModalView
       left: 0
       top: 0
 
-    Ti.API.info "Accepted count=" + @offer.acceptedCount
-
     ratio = @offer.acceptedCount / @offer.cap
-
+    widthPercent = 80 * ratio
+    Ti.API.info "Accepted count=" + @offer.acceptedCount
     Ti.API.info "ratio=" + ratio
+    Ti.API.info "widthPercent=" + widthPercent
 
     progressBar = Ti.UI.createImageView
       left: "10%"
       top: "340dip"
-      width: "190dip"
+      width: widthPercent + "%"
       height: "30dip"
       backgroundColor: "pink"
 

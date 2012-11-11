@@ -40,7 +40,10 @@ class Api
         Ti.API.info "Result: " + client.responseText
         options.success JSON.parse client.responseText
       onerror: (error) ->
-        alert "Api error"
+        if client.responseText? and client.responseText.length > 0
+          alert client.responseText
+        else
+          alert "An unexpected error occured"
         Ti.API.info "Error status: " + client.status
         Ti.API.info "Error text:" + client.responseText
         options.failure client.status, client.responseText

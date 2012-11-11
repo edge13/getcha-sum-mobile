@@ -26,6 +26,9 @@ module.exports.createOfferRow = (offer) ->
     font:
       fontFamily: "Avenir LT Std"
       fontSize: "16dip"
+    scrollable: false
+    editable: false
+    touchEnabled: false
 
   content = Ti.UI.createTextArea
     value: offer.content
@@ -39,6 +42,8 @@ module.exports.createOfferRow = (offer) ->
     font:
       fontFamily: "Avenir LT Std"
       fontSize: "12dip"
+    scrollable: false
+    touchEnabled: false
 
   border = Ti.UI.createView
     backgroundColor: "#878787"

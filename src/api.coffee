@@ -11,10 +11,15 @@ class Api
     "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + @host + "callbacks/dwolla/" + @token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
 
   buildSinglyUrlForService: (service) ->
+    String singlyUrl = ""
     if Global.me? and Global.me.singlyAccessToken?
-      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&access_token=#{Global.me.singlyAccessToken}" + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
+        singlyUrl = "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&access_token=#{Global.me.singlyAccessToken}" + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
     else
-      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
+      singlyUrl = "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
+    if service is 'linkedin'
+      singlyUrl = singlyUrl + "&scope=r_fullprofile+rw_nus"
+    return singlyUrl
+
 
   login: (options) ->
     options.path = "users/login"

@@ -28,9 +28,39 @@ class OfferDetailView extends ModalView
         fontSize: "27sp"
         fontFamily: "Arvil"
 
-    price = Ti.UI.createLabel
+    mediaView = Ti.UI.createView
       top: "70dip"
-      right: "67%"
+      left: 0
+      width: "50%"
+
+    mediaImage = Ti.UI.createImageView
+      top: 0
+      center:
+        x: "50%"
+      image: @getLargeIcon @offer.type
+
+    mediaLabel = Ti.UI.createLabel
+      text: "USE THIS"
+      center:
+        x: "50%"
+      top: "125dip"
+      color: "#d82a2a"
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+      font:
+        fontFamily: "Avenir LT Std"
+        fontSize: "12sp"
+
+    mediaView.add mediaImage
+    mediaView.add mediaLabel
+
+    priceView = Ti.UI.createView
+      top: "70dip"
+      right: 0
+      width: "50%"
+
+    price = Ti.UI.createLabel
+      top: 0
+      width: "70%"
       left: 0
       text: @offer.price
       color: "#d2dd26"
@@ -40,36 +70,82 @@ class OfferDetailView extends ModalView
         fontFamily: "Arvil"
 
     cent = Ti.UI.createImageView
-      left: "36%"
-      top: "70dip"
+      left: "73%"
+      top: 0
       image: "/offerdetail/cent.png"
 
     earnThat = Ti.UI.createLabel
       center:
-        x: "24%"
-      top: "195dip"
+        x: "50%"
+      top: "125dip"
       text: "EARN THAT"
       color: "#d82a2a"
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
       font:
         fontFamily: "Avenir LT Std"
         fontSize: "12sp"
 
+    priceView.add price
+    priceView.add cent
+    priceView.add earnThat
+
     progress = Math.max(1, Math.round((@offer.acceptedCount / @offer.cap) * 10))
     
-    Ti.API.info "Accepted count=" + @offer.acceptedCount
-    Ti.API.info "progress=" + progress
+    progressView = Ti.UI.createView
+      top: "70dip"
+      left: "100%"
+      width: "50%"
 
     progressBackground = Ti.UI.createImageView
       center:
-        x: "76%"
-      top: "70dip"
+        x: "50%"
+      top: 0
       image: "/offerdetail/progress-bg.png"
 
     progressImage = Ti.UI.createImageView
       center:
-        x: "76%"
-      top: "70dip"
+        x: "50%"
+      top: 0
       image: "/offerdetail/progress-" + progress + ".png"
+
+    width = Ti.Platform.displayCaps.platformWidth
+
+    leftOut = Ti.UI.createAnimation
+      right: width
+      left: -width
+      duration: 600
+
+    rightOver = Ti.UI.createAnimation
+      left: 0
+      right: width/2
+      duration: 600
+
+    rightIn = Ti.UI.createAnimation
+      left: width/2
+      right: 0
+      duration: 600
+
+    current = "media"
+    setInterval ->
+      if current is "media"
+        progressView.left = width
+        progressView.animate rightIn
+        priceView.animate rightOver
+        mediaView.animate leftOut
+        current = "price"
+      else if current is "price"
+        mediaView.left = width
+        mediaView.animate rightIn
+        progressView.animate rightOver
+        priceView.animate leftOut
+        current = "progress"
+      else
+        priceView.left = width
+        priceView.animate rightIn
+        mediaView.animate rightOver
+        progressView.animate leftOut
+        current = "media"
+    , 3000
 
     setInterval ->
       progress = Math.min(10, progress+1)
@@ -79,12 +155,17 @@ class OfferDetailView extends ModalView
     progressLabel = Ti.UI.createLabel
       text: @offer.acceptedCount + " OUT OF " + @offer.cap
       center:
-        x: "76%"
-      top: "195dip"
+        x: "50%"
+      top: "125dip"
       color: "#d82a2a"
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
       font:
         fontFamily: "Avenir LT Std"
         fontSize: "12sp"
+
+    progressView.add progressBackground
+    progressView.add progressImage
+    progressView.add progressLabel
 
     offerName = Ti.UI.createTextArea
       value: do @offer.name.toUpperCase
@@ -120,13 +201,9 @@ class OfferDetailView extends ModalView
 
     @view.add accept
     @view.add cancel
-    #@view.add type
-    @view.add cent
-    @view.add price
-    @view.add earnThat
-    @view.add progressBackground
-    @view.add progressImage
-    @view.add progressLabel
+    @view.add mediaView
+    @view.add priceView
+    @view.add progressView
     @view.add offerName
     @view.add offerTextArea
 
@@ -204,5 +281,18 @@ class OfferDetailView extends ModalView
       success phones
     else
       alert "There was a problem loading contact phone"
+
+  getLargeIcon: (type) ->
+    folder = "/offerdetail/"
+    if type is "facebook"
+      folder + "facebook-lg.png"
+    else if type is "linkedin"
+      folder + "in-lg.png"
+    else if type is "tumblr"
+      folder + "tumblr-lg.png"
+    else if type is "twilio"
+      folder + "twilio-lg.png"
+    else if type is "twitter"
+      folder + "twitter-lg.png"
 
 module.exports = OfferDetailView

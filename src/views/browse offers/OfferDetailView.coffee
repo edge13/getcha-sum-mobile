@@ -99,7 +99,7 @@ class OfferDetailView extends ModalView
     offerTextArea = Ti.UI.createTextArea
       editable: false
       value: @offer.content
-      top: "270dip"
+      top: "265dip"
       left: "10dip"
       right: "10dip"
       color: "#999999"

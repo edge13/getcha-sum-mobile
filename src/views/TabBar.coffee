@@ -86,7 +86,7 @@ class TabBar
       bottom: "1dp"
 
     @middleLabel = Ti.UI.createLabel
-      text: "Offers"
+      text: "Browse Offers"
       color: "white"
       font:
         fontFamily: "Arvil"

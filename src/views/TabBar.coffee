@@ -8,7 +8,7 @@ class TabBar
     Pusher.onNewOffer = @showNotification
 
     @views = new Array()
-    @selectedIndex = 0
+    @selectedIndex = 1
     @buttons = new Array()
 
     @window = Ti.UI.createWindow

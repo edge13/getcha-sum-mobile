@@ -213,20 +213,23 @@ class OfferDetailView extends ModalView
     api.acceptOffer options
 
   confirm: (offer) ->
+    Ti.API.info "creating confirmation"
     curtain = Ti.UI.createView
       width: "100%"
       height: "100%"
       backgroundColor: "#55000000"
 
-    popup = Ti.UI.createView
-      width: "95%"
-      height: "150dip"
-      backgroundColor: "white"
+    popup = Ti.UI.createImageView
+      center:
+        x: "50%"
+        y: "50%"
+      image: "stamp.png"
 
-    text = Ti.UI.createLabel
-      text: "Congrats"
-
-    popup.add text
+    sound = Ti.Media.createSound
+      url: "chaching.wav"
+      preload: true
+    do sound.play
+ 
     curtain.add popup
     @view.add curtain
 

@@ -1,0 +1,84 @@
+<h1>Channel</h1>
+
+<h2>Description</h2>
+
+<p>This class encapsulates the behaviour on a subscribed message.</p>
+
+<h2>Reference</h2>
+
+<h3>channel.unsubscribe()</h3>
+
+<p>Unsubscribes from the channel. After this you should not receive any more
+event on this channel.</p>
+
+<p>Example:</p>
+
+<pre><code>channel.unsubscribe();
+</code></pre>
+
+<h3>channel.trigger(eventName, data)</h3>
+
+<p>Sends an event to this channel.</p>
+
+<ul>
+<li><strong>eventName</strong> [string, required] is the name of the event to fire</li>
+<li><strong>data</strong> [dictionary, required] is the payload you want to send with the message</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>channel.trigger('eventname', {foo: 'bar', zbr: 123});
+</code></pre>
+
+<p>Please notice that, to use this method, the channel type must be Private or Presence. Public channels
+will not accept messages.</p>
+
+<h3>channel.bind(eventName, callback)</h3>
+
+<p>Binds to an event on this channel. You should enter the event name as the first
+argument, and a callback function on the second argument.</p>
+
+<p>The callback receives a single argument with the payload of the message.</p>
+
+<p>Example:</p>
+
+<pre><code>channel.bind('testingevent', function(data) {
+  Ti.API.warn("RECEIVED EVENT DATA: " + data);
+});
+</code></pre>
+
+<p>Please notice that to stop receiving events on that callback, you should
+use the <code>unbind</code> function.</p>
+
+<h3>channel.bind_all(callback)</h3>
+
+<p>It is possible to bind to all events at either the global or channel level by
+using the method bind_all. This is used for debugging, but may have other
+utilities.</p>
+
+<p>Example:</p>
+
+<pre><code>channel.bind_all(function(name, data) {
+  Ti.API.warn("Received event named " + name);
+  Ti.API.warn("DATA: " + JSON.stringify(data));
+});
+</code></pre>
+
+<h2>Properties</h2>
+
+<h3>members</h3>
+
+<p>Returns a reference to the members object, if this is a presence channel. For more information see
+the <a href="members.html">members</a> documentation.</p>
+
+<h2>Events</h2>
+
+<h3>bind_all</h3>
+
+<p>If you bind the event named 'bind_all' you will automatically receive all
+the events that your device receives <strong>on this channel</strong>, regardless of the event name.
+Useful for debugging purposes.</p>
+
+<h2>Example</h2>
+
+<p>See the <code>example/app.js</code> provided with this module.</p>

@@ -15,7 +15,7 @@ class TabBar
       width: "100%"
       bottom: 0
       backgroundImage: "navBar/navbar-bg.png"
-      height: "12%"
+      height: "13%"
 
     @tabBar = Ti.UI.createView
       height: "100%"
@@ -83,7 +83,7 @@ class TabBar
         fontSize: "12sp"
       center:
         x: "20%"
-      bottom: "4dp"
+      bottom: "1dp"
 
     @middleLabel = Ti.UI.createLabel
       text: "Offers"
@@ -93,7 +93,7 @@ class TabBar
         fontSize: "12sp"
       center:
         x: "50%"
-      bottom: "4dp"
+      bottom: "1dp"
 
     @rightLabel = Ti.UI.createLabel
       text: "My Account"
@@ -103,7 +103,7 @@ class TabBar
         fontSize: "12sp"
       center:
         x: "80%"
-      bottom: "4dp"
+      bottom: "1dp"
 
     @tabBar.add @leftLabel
     @tabBar.add @middleLabel
@@ -128,7 +128,7 @@ class TabBar
       Ti.API.info "clicked notification"
       @show 1
       @views[@selectedIndex].showOfferDetail offer
-      
+
     @views[@selectedIndex].window.add notificationView
 
     fadeOutAnimation = do Ti.UI.createAnimation

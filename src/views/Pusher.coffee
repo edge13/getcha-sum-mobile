@@ -14,7 +14,6 @@ if Ti.Platform.osname is "iphone"
       do @connect
 
     statusChanged: (status) =>
-      Ti.API.info "new pusher status #{status}"
 
     connect: =>
       Ti.API.info "attempting to connect with pusher"
@@ -31,7 +30,6 @@ if Ti.Platform.osname is "iphone"
       do Pusher.connect
 
     handleEvent: (data) =>
-      Ti.API.info "new event, #{JSON.stringify(data)}"
 
       @onNewOffer data if @onNewOffer data
 

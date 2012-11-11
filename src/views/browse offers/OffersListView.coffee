@@ -29,6 +29,7 @@ class OffersList extends ProgoView
 
   showOfferDetail: (@pendingOffer) ->
     Ti.API.info "will show offer detail"
+    
   showOffers: (@offers) ->
     @rows = new Array()
 
@@ -48,5 +49,7 @@ class OffersList extends ProgoView
     Ti.API.info @willSelectIndex
     if @pendingOffer? and @willSelectIndex?
       @table.selectRow @willSelectIndex
+      @pendingOffer = undefined
+      @willSelectIndex = undefined
 
 module.exports = new OffersList()

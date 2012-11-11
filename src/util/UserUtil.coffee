@@ -8,6 +8,12 @@ class UserUtil
   facebookAlias: (user) ->
     @findAlias user, "facebook"
 
+  linkedInAlias: (user) ->
+    @findAlias user, "linkedin"
+
+  tumblrAlias: (user) ->
+    @findAlias user, "tumblr"
+
   findAlias: (user, service) ->
     for alias in user.aliases
       if alias.service is service

@@ -236,7 +236,7 @@ class OfferDetailView extends ModalView
     setTimeout =>
       @view.remove curtain
       do @options.close
-    , 3000
+    , 4500
 
   showContacts: (success) ->
     if Ti.Platform.osname is "iphone"

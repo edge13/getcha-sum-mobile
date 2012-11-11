@@ -22,6 +22,7 @@ module.exports.createOfferRow = (offer) ->
     color: "#ffffff"
     top: "7dip"
     left: "65dip"
+    height: "25dip"
     backgroundColor: "transparent"
     font:
       fontFamily: "Avenir LT Std"

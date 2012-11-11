@@ -31,7 +31,9 @@ if Ti.Platform.osname is "iphone"
       do Pusher.connect
 
     handleEvent: (data) =>
-      Ti.API.info "new event, #{parseInt(data)}"
+      Ti.API.info "new event, #{JSON.stringify(data)}"
+
+      @onNewOffer data if @onNewOffer data
 
 
   module.exports = new PusherHandler()  

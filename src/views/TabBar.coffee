@@ -5,6 +5,8 @@ Pusher = require "Pusher"
 
 class TabBar
   constructor: ->
+    Pusher.onNewOffer = @showNotification
+
     @views = new Array()
     @selectedIndex = 0
     @buttons = new Array()
@@ -108,6 +110,44 @@ class TabBar
     @tabBar.add @rightLabel
 
     @window.add @tabBar
+
+  showNotification: (offer) =>
+    Ti.API.info "showing notification"
+    notificationView = Ti.UI.createView
+      width: "80%"
+      height: "40dp"
+      top: "-40dp"
+      backgroundColor: "yellow"
+
+    label = Ti.UI.createLabel
+      text: offer.name
+
+    notificationView.add label
+
+    notificationView.addEventListener "click", =>
+      Ti.API.info "clicked notification"
+      @show 1
+      @views[@selectedIndex].showOfferDetail offer
+      
+    @views[@selectedIndex].window.add notificationView
+
+    fadeOutAnimation = do Ti.UI.createAnimation
+    fadeOutAnimation.duration = 500
+    fadeOutAnimation.opacity = 0
+    fadeOutAnimation.addEventListener "complete", =>
+      @views[@selectedIndex].window.remove notificationView
+
+    dropDownAnimation = do Ti.UI.createAnimation
+    dropDownAnimation.duration = 500
+    dropDownAnimation.top = 0
+    dropDownAnimation.addEventListener "complete", =>
+      setTimeout =>
+        notificationView.animate fadeOutAnimation
+      , 4000
+
+    notificationView.animate dropDownAnimation
+      
+
 
   add: (progoView) ->
     @views.push progoView

@@ -143,21 +143,27 @@ class IOSTable extends RefreshingTable
 
     @view = @table
 
+  selectRow: (index) =>
+    @table.fireEvent "click",
+      index: index
+      rowData: @rows[index]
+
   endReloading: =>
     super()
     @table.setContentInsets({top:0},{animated:true});
 
   addToView: (view) ->
     view.add @table
+
   setData: (data) ->
-    rows = new Array()
+    @rows = new Array()
     for dat in data
       row = Ti.UI.createTableViewRow
         height: dat.height
       row.offer = dat.offer
       row.add dat
-      rows.push row
-    @table.data = rows
+      @rows.push row
+    @table.data = @rows
 
 class AndroidTable extends RefreshingTable
   constructor: (options) ->

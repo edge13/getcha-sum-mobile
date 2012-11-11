@@ -27,10 +27,15 @@ class OffersList extends ProgoView
       success: (data) =>
         @showOffers data
 
+  showOfferDetail: (@pendingOffer) ->
+    Ti.API.info "will show offer detail"
   showOffers: (@offers) ->
     @rows = new Array()
 
-    for offer in @offers
+    for offer, i in @offers
+      if @pendingOffer?
+        if offer.id is @pendingOffer.id
+          @willSelectIndex = i
       continue unless offer.content? or offer.content.length is 0
       row = rowFactory.createOfferRow offer
       @rows.push row
@@ -38,5 +43,10 @@ class OffersList extends ProgoView
     @table.setData @rows
 
     do @table.endReloading if @table.reloading
+
+    Ti.API.info @pendingOffer
+    Ti.API.info @willSelectIndex
+    if @pendingOffer? and @willSelectIndex?
+      @table.selectRow @willSelectIndex
 
 module.exports = new OffersList()

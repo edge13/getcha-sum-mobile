@@ -11,6 +11,22 @@ class MyOffersView extends ProgoView
       image: "/createoffer-btn.png"
       right: 0
 
+    logo = Ti.UI.createImageView
+      image: "/logo.png"
+      left: "12dip"
+      top: "8dip"
+
+    @view.add logo
+
+    shadow = Ti.UI.createView
+      width: "100%"
+      top: "45dip"
+      height: "18dip"
+      left: 0
+      backgroundImage: "/topbar-shadow.png"
+
+    @view.add shadow
+
     createButton.addEventListener "click", (event) =>
       createView = new CreateOfferView
         close: =>

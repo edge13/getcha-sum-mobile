@@ -73,7 +73,7 @@ class AccountView extends ProgoView
 
     if service is "dwolla"
       button.addEventListener "click", (event) =>
-        connect = new connectView
+        connect = new ConnectView
           url: do api.buildDwollaUrl
           close: do =>
             @popModal
@@ -83,7 +83,7 @@ class AccountView extends ProgoView
         @showModal connect.view
     else
       button.addEventListener "click", (event) =>
-        connect = new connectView
+        connect = new ConnectView
           url: api.buildSinglyUrlForService service
           close: do =>
             @popModal

@@ -96,7 +96,7 @@ class IOSTable extends RefreshingTable
     @table.headerPullView = @tableHeader
 
     @table.addEventListener "click", (e) =>
-      do @onRowClicked e if @onRowClicked?
+      @onRowClicked e if @onRowClicked?
 
     @pulling = false
     @reloading = false

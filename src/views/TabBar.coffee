@@ -7,37 +7,57 @@ class TabBar
   constructor: ->
     @views = new Array()
     @selectedIndex = 0
+    @buttons = new Array()
 
     @window = Ti.UI.createWindow
       width: "100%"
-      height: "10%"
       bottom: 0
+      backgroundImage: "navBar/navbar-bg.png"
+      height: "12%"
 
     @tabBar = Ti.UI.createView
       height: "100%"
       width: "100%"
-      backgroundColor: "pink"
+      backgroundColor: "transparent"
       bottom: 0
-      layout: "horizontal"
+      #layout: "horizontal"
 
-    @leftButton = Ti.UI.createButton
-      title: "1"
-      height: "100%"
-      width: "33%"
+    @leftButton = Ti.UI.createImageView
+      image: "navBar/myoffers-icon.png"
+      hires: true
+      center: 
+        x: "20%"
+        y: "55%"
+
     @leftButton.index = 0
 
-    @rightButton = Ti.UI.createButton
-      title: "3"
-      height: "100%"
-      width: "33%"
+    @rightButton = Ti.UI.createImageView
+      image: "navBar/account-icon.png"
+      hires: true
+      center: 
+        x: "80%"
+        y: "55%"
     @rightButton.index = 2
 
-    @middleButton = Ti.UI.createButton
-      title: "2"
-      height: "100%"
-      width: "33%"
+    @middleButton = Ti.UI.createImageView
+      image: "navBar/browse-icon.png"
+      hires: true
+      center: 
+        x: "50%"
+        y: "55%"
+
     @middleButton.index = 1
 
+    @selectionView = Ti.UI.createImageView
+      image: "navBar/navbar-bg-active.png"
+      hires: true
+    @selectionView.hide()
+
+    @buttons.push @leftButton
+    @buttons.push @middleButton
+    @buttons.push @rightButton
+
+    @tabBar.add @selectionView
     @tabBar.add @leftButton
     @tabBar.add @middleButton
     @tabBar.add @rightButton
@@ -66,11 +86,16 @@ class TabBar
     @selectedIndex = index
 
     do @views[@selectedIndex].onShow
+    do @window.close
+    do @window.open
+
+    @selectionView.center = @buttons[@selectedIndex].center
+    @selectionView.show()
 
   open: ->
-    do @window.open
     do @views[@selectedIndex].open
     do @views[@selectedIndex].onShow
+    do @window.open
 
   close: ->
     do @window.close

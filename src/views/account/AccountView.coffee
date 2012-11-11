@@ -22,7 +22,7 @@ class AccountView extends ProgoView
 
     @buttonsView = Ti.UI.createView
       height: "400dp"
-      backgroundColor: 'purple'
+      backgroundColor: "transparent"
       width: "100%"
       top: "25dp"
 
@@ -75,9 +75,9 @@ class AccountView extends ProgoView
       button.addEventListener "click", (event) =>
         connect = new ConnectView
           url: do api.buildDwollaUrl
-          close: do =>
-            @popModal
-            @updateSeletions
+          close: =>
+            do @popModal
+            do @updateSeletions
           cancelUrl: "https://www.dwolla.com/"
           
         @showModal connect.view
@@ -85,9 +85,9 @@ class AccountView extends ProgoView
       button.addEventListener "click", (event) =>
         connect = new ConnectView
           url: api.buildSinglyUrlForService service
-          close: do =>
-            @popModal
-            @updateSeletions
+          close: =>
+            do @popModal
+            do @updateSeletions
         @showModal connect.view
 
     button

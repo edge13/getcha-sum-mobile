@@ -7,12 +7,15 @@ class LoginView
     @window = Ti.UI.createWindow
       width: "100%"
       height: "100%"
-      backgroundColor: "#ffffff"
+      backgroundImage: "/background.png"
 
     logo = Ti.UI.createLabel
       top: "30dip"
       left: "30dip"
       text: "PROGO"
+      font:
+        fontFamily: "Avenir LT Std"
+        fontSize: "30sp"
 
     @email = Ti.UI.createTextField
       top: "90dip"

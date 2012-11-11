@@ -4,7 +4,7 @@ api = require "api"
 
 class CreateOfferView extends ModalView
   layout: ->
-    @types = ["TWITTER"]
+    @type = "TWITTER"
 
     container = Ti.UI.createScrollView
       width: "100%"
@@ -48,14 +48,50 @@ class CreateOfferView extends ModalView
       borderWidth: "1dip"      
 
     @submit = Ti.UI.createButton
-      top: "200dip"
+      top: "170dip"
+      right: 0
       title: "Submit"
+
+    @twitter = Ti.UI.createButton
+      title: "twitter"
+      left: 0
+
+    @facebook = Ti.UI.createButton
+      title: "facebook"
+      left: "50dip"
+
+    @tumblr = Ti.UI.createButton
+      title: "tumblr"
+      left: "100dip"
+
+    @linkedin = Ti.UI.createButton
+      title: "linkedin"
+      left: "150dip"    
+
+    @twilio = Ti.UI.createButton
+      title: "twilio"
+      right: 0
+
+    @twitter.addEventListener "click", (event) =>
+      @type = "twitter"
+
+    @twilio.addEventListener "click", (event) =>
+      @type = "twilio"
+
+    @facebook.addEventListener "click", (event) =>
+      @type = "facebook"
+
+    @tumblr.addEventListener "click", (event) =>
+      @type = "tumblr"
+
+    @linkedin.addEventListener "click", (event) =>
+      @type = "linkedin"
 
     @submit.addEventListener "click", (event) =>
       offer = {}
       offer.name = @name.value
       offer.content = @content.value
-      offer.type = "twitter"
+      offer.type = @type
       offer.price = parseFloat @price.value
       offer.cap = parseInt @count.value
       @confirm offer
@@ -65,6 +101,11 @@ class CreateOfferView extends ModalView
     container.add @price
     container.add @content
     container.add @count
+    container.add @twitter
+    container.add @facebook
+    container.add @tumblr
+    container.add @linkedin
+    container.add @twilio
     container.add @submit
 
     @view.add container

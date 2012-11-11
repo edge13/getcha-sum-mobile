@@ -9,7 +9,7 @@ class OffersList extends ProgoView
     @table = new RefreshingTable
       height: "100%"
       width: "100%"
-      backgroundColor: "blue"
+      backgroundColor: "transparent"
   
     @view.add @table.view
 

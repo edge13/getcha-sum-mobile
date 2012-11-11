@@ -1,14 +1,83 @@
+findIcon = (type) ->
+  folder = "/serviceIcons/"
+  if type is "facebook"
+    folder + "facebook-sm.png"
+  else if type is "linkedin"
+    folder + "in-sm.png"
+  else if type is "tumblr"
+    folder + "tumblr-sm.png"
+  else if type is "twilio"
+    folder + "twilio-sm.png"
+  else if type is "twitter"
+    folder + "twitter-sm.png"
+
 module.exports.createOfferRow = (offer) ->
 
   row = Ti.UI.createView
     width: "100%"
-    height: "200dp"
-  row.rowHeight = 200
+    height: "95dip"
 
-  label = Ti.UI.createLabel
-    text: offer.content
+  title = Ti.UI.createTextArea
+    value: do offer.name.toUpperCase
+    color: "#ffffff"
+    top: "7dip"
+    left: "65dip"
+    backgroundColor: "transparent"
+    font:
+      fontFamily: "Avenir LT Std"
+      fontSize: "16dip"
+
+  content = Ti.UI.createTextArea
+    value: offer.content
+    color: "#878787"
+    left: "65dip"
+    top: "30dip"
+    bottom: "18dip"
+    right: "15dip"
+    editable: false
+    backgroundColor: "transparent"
+    font:
+      fontFamily: "Avenir LT Std"
+      fontSize: "12dip"
+
+  border = Ti.UI.createView
+    backgroundColor: "#878787"
+    width: "100%"
+    height: "1dip"
+    bottom: 0
+
+  icon = findIcon offer.type
+
+  if icon?
+    image = Ti.UI.createImageView
+      left: "18dip"
+      top: "12dip"
+      image: icon
+    row.add image
+
+  price = Ti.UI.createLabel
+    textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+    text: offer.price
+    top: "50dip"
+    color: "#d2dd26"
+    center:
+      x: "32dip"
+    font:
+      fontFamily: "Avenir LT Std"
+      fontSize: "30sp"
+
+  cent = Ti.UI.createImageView
+    left: "36dip"
+    image: "/offerdetail/cent.png"
+    width: "24dip"
+    height: "10dip"
+    top: "50dip"
 
   row.offer = offer
-  row.add label
+  row.add title
+  row.add content
+  row.add border
+  row.add price
+  row.add cent
 
   row

@@ -103,7 +103,7 @@ class OfferDetailView extends ModalView
       top: "265dip"
       left: "10dip"
       right: "10dip"
-      color: "#999999"
+      color: "#878787"
       font:
         fontSize: "18sp"
         fontFamily: "Avenir LT Std"

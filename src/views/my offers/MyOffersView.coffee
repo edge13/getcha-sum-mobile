@@ -42,7 +42,6 @@ class MyOffersView extends ProgoView
     @offersTable.beginReloading = @onShow
     @offersTable.onRowClicked = (e) =>
       #do something?
-      alert "you clicked an offer you own"
 
     @offersTable.addToView @view
     @view.add createButton

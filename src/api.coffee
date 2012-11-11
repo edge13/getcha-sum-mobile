@@ -2,7 +2,7 @@ Global = require "Global"
 
 class Api
   constructor: ->
-    @host = "http://localhost:9000/"
+    @host = "http://progoserver.appspot.com/"
     @token = undefined
     @dwollaId = "ApS2lLgIfKNXE4BbkuMS3rSs40XyEXvFqlc72nqJ9kTm7Tmrm6"
     @singlyId = "54e441cddf0c4c2cf1bc54de317913df"

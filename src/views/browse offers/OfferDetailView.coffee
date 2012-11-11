@@ -132,12 +132,19 @@ class OfferDetailView extends ModalView
     contactsView = Ti.UI.createView
       width: "100%"
       height: "100%"
-      backgroundColor: "gray"
+      backgroundImage: "background.png"
 
     contactTable = Ti.UI.createTableView
       width: "100%"
       top: "30dip"
       bottom: 0
+      backgroundColor: "transparent"
+
+    rows = new Array()
+    for person in people
+      if person.phone?
+        rows.push @createPersonRow person
+    contactTable.setData rows
 
     submit = Ti.UI.createButton
       top: 0
@@ -149,7 +156,29 @@ class OfferDetailView extends ModalView
     @view.add contactsView
 
     submit.addEventListener "click", (event) =>
+      #gather selected contacts
       @view.remove contactsView
       do success
+
+  createPersonRow: (person) ->
+    person.selected = false
+    row = Ti.UI.createTableViewRow
+      width: "100%"
+      height: "30dip"
+    name = Ti.UI.createLabel
+      text: person.fullName
+      left: 0
+    status = Ti.UI.createLabel
+      text: "off"
+      right: 0
+    row.addEventListener "click", (event) ->
+      person.selected = !person.selected
+      if person.selected
+        status.text = "on"
+      else
+        status.text = "off"
+    row.add name
+    row.add status
+    row
 
 module.exports = OfferDetailView

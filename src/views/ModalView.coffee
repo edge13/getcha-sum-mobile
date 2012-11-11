@@ -3,7 +3,7 @@ class ModalView
     @view = Ti.UI.createView
       width: "100%"
       height: "100%"
-      backgroundImage: "background.png"
+      backgroundImage: "/background.png"
       
     do @layout
 

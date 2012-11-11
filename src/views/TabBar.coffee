@@ -10,7 +10,6 @@ class TabBar
     @window = Ti.UI.createWindow
       width: "100%"
       height: "10%"
-      backgroundColor: '#ffffff'
       bottom: 0
 
     @tabBar = Ti.UI.createView

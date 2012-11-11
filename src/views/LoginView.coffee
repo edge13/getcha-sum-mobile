@@ -7,7 +7,7 @@ class LoginView
     @window = Ti.UI.createWindow
       width: "100%"
       height: "100%"
-      backgroundImage: "background.png"
+      backgroundImage: "/background.png"
 
     logo = Ti.UI.createLabel
       top: "30dip"

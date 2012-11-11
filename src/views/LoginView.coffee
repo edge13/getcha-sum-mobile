@@ -7,62 +7,88 @@ class LoginView
     @window = Ti.UI.createWindow
       width: "100%"
       height: "100%"
-      backgroundImage: "/background.png"
 
-    logo = Ti.UI.createLabel
-      top: "40dip"
-      left: "30dip"
-      text: "The Quick brown fox"
-      color: "white"
+    @container = Ti.UI.createScrollView
+      width: "100%"
+      height: "100%"
+      contentWidth: "100%"
+      contentHeight: "100%"
+
+    @canvas = Ti.UI.createView
+      width: "100%"
+      height: "100%"
+      backgroundImage: "/Default.png"
+
+    @container.add @canvas
+
+    @emailBack = Ti.UI.createView
+      backgroundImage: "/text-createoffername.png"
+      top: "195dip"
+      left: "15dip"
+      right: "15dip"
+      height: "30dip"
+    
+    @email = Ti.UI.createTextField
+      top: "202dip"
+      left: "20dip"
+      right: "20dip"
+      hintText: "EMAIL ADDRESS"
       font:
         fontFamily: "Avenir LT Std"
-        fontSize: "30sp"
+        fontSize: "18sp"
+      color: "#ffffff"
 
-    @email = Ti.UI.createTextField
-      top: "90dip"
-      left: "60dip"
-      hintText: "Email Address"
-      width: "200dip"
-      height: "40dip"
-      borderWidth: "1dip"
-      borderColor: "#000000"
-      value: "testuser@null.com"
+    @email.addEventListener "return", (event) =>
+      do @password.focus
+
+    @passwordBack = Ti.UI.createView
+      backgroundImage: "/text-createoffername.png"
+      top: "235dip"
+      left: "15dip"
+      right: "15dip"
+      height: "30dip"
 
     @password = Ti.UI.createTextField
-      top: "140dip"
-      left: "60dip"
+      top: "242dip"
+      left: "20dip"
+      right: "20dip"
+      hintText: "PASSWORD"
+      font:
+        fontFamily: "Avenir LT Std"
+        fontSize: "18sp"
+      color: "#ffffff"
       passwordMask: true
-      hintText: "Password"
-      width: "200dip"
-      height: "40dip"
-      borderWidth: "1dip"
-      borderColor: "#000000"
-      value: "password"
 
-    @submit = Ti.UI.createButton
-      top: "190dip"
-      left: "50dip"
-      width: "200dip"
-      title: "Submit"
+    @password.addEventListener "return", @login
 
-    @submit.addEventListener "click", (event) =>
-      Ti.API.info "Authenticating"
-      api.login
-        data:
-          email: @email.value
-          password: @password.value
-        success: (response) =>
-          api.token = response.token
-          api.getMe
-            success: (me) =>
-              Global.me = me
-              do TabBar.open
-              do @window.close
+    @submit = Ti.UI.createView
+      top: "273dip"
+      left: "85dip"
+      right: 0
 
-    @window.add logo
-    @window.add @email
-    @window.add @password
-    @window.add @submit
+    @submit.addEventListener "click", @login
+      
+    @container.add @emailBack
+    @container.add @email
+    @container.add @passwordBack
+    @container.add @password
+    @container.add @submit
+
+    @window.add @container
+
+  login: (event) =>
+    Ti.API.info "Authenticating"
+    api.login
+      data:
+        email: @email.value
+        password: @password.value
+      success: (response) =>
+        api.token = response.token
+        api.getMe
+          success: (me) =>
+            Global.me = me
+            do TabBar.open
+            do @window.close
 
   show: ->
     do @window.open

@@ -7,11 +7,44 @@ RefreshingTable = require "RefreshingTable"
 class OffersList extends ProgoView
   layout: ->
     @table = new RefreshingTable
-      height: "100%"
+      top: "45dip"
+      bottom: 0
       width: "100%"
       backgroundColor: "transparent"
   
     @view.add @table.view
+
+    @logo = Ti.UI.createImageView
+      image: "/logo.png"
+      left: "12dip"
+      top: "8dip"
+
+    @view.add @logo
+
+    @shadow = Ti.UI.createView
+      width: "100%"
+      top: "45dip"
+      height: "18dip"
+      left: 0
+      backgroundImage: "/topbar-shadow.png"
+
+    @view.add @shadow
+
+    @darkPatch = Ti.UI.createView
+      backgroundImage: "/darkbg-stretch.png"
+      right: 0
+      top: 0
+      width: "60dip"
+      height: "45dip"
+
+    @view.add @darkPatch
+
+    @magnify = Ti.UI.createImageView
+      image: "/search-icon.png"
+      top: "8dip"
+      right: "12dip"
+
+    @view.add @magnify
 
     @table.onRowClicked = (e) =>
       offer = new OfferDetailView

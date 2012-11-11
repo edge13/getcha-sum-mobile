@@ -146,12 +146,7 @@ class OfferDetailView extends ModalView
         progressView.animate leftOut
         current = "media"
     , 3000
-
-    setInterval ->
-      progress = Math.min(10, progress+1)
-      progressImage.image = "/offerdetail/progress-" + progress + ".png"
-    , 1000
-
+    
     progressLabel = Ti.UI.createLabel
       text: @offer.acceptedCount + " OUT OF " + @offer.cap
       center:

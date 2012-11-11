@@ -63,7 +63,7 @@ module.exports.createOfferRow = (offer) ->
   price = Ti.UI.createLabel
     textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
     text: offer.price
-    top: "50dip"
+    top: "48dip"
     color: "#d2dd26"
     center:
       x: "32dip"
@@ -73,10 +73,10 @@ module.exports.createOfferRow = (offer) ->
 
   cent = Ti.UI.createImageView
     left: "36dip"
-    image: "/offerdetail/cent.png"
+    image: "/cent.png"
     width: "24dip"
     height: "10dip"
-    top: "50dip"
+    top: "52dip"
 
   row.offer = offer
   row.add title

@@ -59,7 +59,8 @@ class Api
           alert "An unexpected error occured"
         Ti.API.info "Error status: " + client.status
         Ti.API.info "Error text:" + client.responseText
-        options.failure client.status, client.responseText
+        if options.failure?
+          options.failure client.status, client.responseText
       timeout: 10000
 
     Ti.API.info @host + options.path

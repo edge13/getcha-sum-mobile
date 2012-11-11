@@ -1,6 +1,7 @@
 ProgoView = require "ProgoView"
 CreateOfferView = require "CreateOfferView"
 RefreshingTable = require "RefreshingTable"
+RowFactory = require "RowFactory"
 api = require "api"
 
 class MyOffersView extends ProgoView
@@ -35,21 +36,10 @@ class MyOffersView extends ProgoView
         @myOffers = offers
         rows = new Array()
         for offer in offers
-          rows.push @createOfferRow offer
+          rows.push RowFactory.createOfferRow offer
         @offersTable.setData rows
         if @offersTable.reloading
           do @offersTable.endReloading
         #add a bunch of rows
-
-  createOfferRow: (offer) ->
-    row = Ti.UI.createView
-      height: "40dip"
-    row.rowHeight = 40
-    label = Ti.UI.createLabel
-      left: "10dip"
-      top: "5dip"
-      text: offer.name
-    row.add label
-    row
 
 module.exports = new MyOffersView()

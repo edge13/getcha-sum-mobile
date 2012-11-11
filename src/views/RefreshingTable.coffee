@@ -94,6 +94,7 @@ class RefreshingTable
 class IOSTable extends RefreshingTable
   constructor: (options) ->
     super options
+    options.separatorColor = "transparent"
     @table = Ti.UI.createTableView options
 
     @table.headerPullView = @tableHeader

@@ -12,19 +12,21 @@ class CreateOfferView extends ModalView
       contentWidth: "100%"
       contentHeight: "100%"
 
-    @instruct = Ti.UI.createLabel
-      top: "5dip"
-      text: "Create an offer"
+    @blahArea = Ti.UI.createView
+      width: "87%"
+      height: "22dip"
+      backgroundImage: "createOffer/text-createOffername.png"
+      top: "50dip"
 
     @name = Ti.UI.createTextField
       hintText: "OFFER NAME"
       width: "87%"
-      height: "27dip"
-      backgroundImage: "createOffer/text-createOffername.png"
-      top: "50dip"
+      height: "22dip"
+      top: "51dip"
       font:
         fontSize: "27sp"
         fontFamily: "Arvil"
+      color: "white"
 
     @buttonsArea = Ti.UI.createView
       top: "90dp"
@@ -32,28 +34,56 @@ class CreateOfferView extends ModalView
       width: "90%"
       layout: "horizontal"
 
-    @content = Ti.UI.createTextArea
-      width: "90%"
-      height: "60dip"
-      top: "600dip"
-      hintText: "content"
-      borderColor: "#000000"
-      borderWidth: "1dip"
-      suppressReturn: false
+    @priceLabel = Ti.UI.createLabel
+      text: "I'LL PAY"
+      color: "#d2dd26"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
+      left: "14dp"
+      top: "160dp"
 
     @price = Ti.UI.createTextField
-      top: "140dip"
+      top: "160dip"
       keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
-      hintText: "Price per"
-      borderColor: "#000000"
-      borderWidth: "1dip"
+      left: "75dp"
+      height: "22dp"
+      backgroundImage: "createOffer/text-createofferprice.png"
+      width: "220dp"
+      color: "white"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
+
+    @countLabel = Ti.UI.createLabel
+      text: "TO THE FIRST"
+      color: "#d2dd26"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
+      left: "14dp"
+      top: "195dp"
 
     @count = Ti.UI.createTextField
-      top: "170dip"
+      color: "white"
+      top: "195dp"
       keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
-      hintText: "Count"
-      borderColor: "#000000"
-      borderWidth: "1dip"      
+      backgroundImage: "createOffer/text-createoffermax.png"
+      height: "22dp"
+      width: "140dp"
+      left: "115dp"   
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"  
+
+    @usersLabel = Ti.UI.createLabel
+      text: "USERS"
+      color: "#d2dd26"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
+      top: "195dp"
+      left: "265dp"
 
     @buttons = new Array()
 
@@ -152,14 +182,36 @@ class CreateOfferView extends ModalView
       offer.cap = parseInt @count.value
       @confirm offer
 
-    container.add @instruct
+    @contentBg = Ti.UI.createView
+      backgroundImage: "createOffer/text-description.png"
+      width: "90%"
+      top: "227dp"
+      height: "175dp"
+
+    @content = Ti.UI.createTextArea
+      color: "white"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
+      hintText: "DESCRIPTION"
+      height: "175dp"
+      width: "90%"
+      backgroundColor: "transparent"
+      top: "227dp" 
+
+    container.add @blahArea
     container.add @name
     container.add @price
-    container.add @content
+    container.add @priceLabel
+    container.add @countLabel
     container.add @count
     container.add @cancel
     container.add @buttonsArea
     container.add @accept
+    container.add @usersLabel
+    container.add @contentBg
+    container.add @content
+
     @view.add container
 
   clearButtons: =>

@@ -153,6 +153,7 @@ class IOSTable extends RefreshingTable
     for dat in data
       row = Ti.UI.createTableViewRow
         height: dat.height
+      row.offer = dat.offer
       row.add dat
       rows.push row
     @table.data = rows
@@ -161,8 +162,9 @@ class AndroidTable extends RefreshingTable
   constructor: (options) ->
     super options
 
-    @scrollView = TI.UI.createScrollView
-      contentHeight: "auto"
+    @scrollView = Ti.UI.createScrollView
+      height: "100%"
+      width: "100%"
       layout: "vertical"
       showVerticalScrollIndicator: false
 
@@ -170,6 +172,7 @@ class AndroidTable extends RefreshingTable
     @scrollView.scrollTo 0, 60
 
     @view = @scrollView
+
   setData: (data) ->
     tmpView = Ti.UI.createView
       height: Titanium.UI.SIZE
@@ -182,6 +185,8 @@ class AndroidTable extends RefreshingTable
     @scrollView.remove @rowsView if @rowsView
     @rowsView = tmpView
     @scrollView.add @rowsView
+    Ti.API.info @rowsView.height + 60
+    @scrollView.contentHeight = @rowsView.height + 60
 
     @scrollView.scrollTo 0, 60
 
@@ -199,10 +204,10 @@ class AndroidTable extends RefreshingTable
         @statusLabel.text = "Release to Reload"
       else if @offset > 5 and @offset < 60
         t = do Ti.UI.create2DMatrix
-        arrow.animate
+        @arrow.animate
           transform: t
           duration: 180
-        statusLabel.text = "Pull to refresh"
+        @statusLabel.text = "Pull to refresh"
 
     @scrollView.addEventListener "touchend", (e) =>
       return unless @reloading

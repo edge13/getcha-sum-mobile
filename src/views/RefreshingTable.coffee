@@ -138,6 +138,9 @@ class IOSTable extends RefreshingTable
         @arrow.transform = Ti.UI.create2DMatrix()
         do @beginReloading
 
+    @table.addEventListener "click", (e) =>
+      @onRowClicked e if @onRowClicked?
+
     @view = @table
 
   endReloading: =>

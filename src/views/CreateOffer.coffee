@@ -55,7 +55,7 @@ class CreateOffersView extends ModalView
       offer = {}
       offer.name = @name.value
       offer.content = @content.value
-      offer.type = "TWITTER"
+      offer.type = "twitter"
       offer.price = parseFloat @price.value
       offer.cap = parseInt @count.value
       @confirm offer

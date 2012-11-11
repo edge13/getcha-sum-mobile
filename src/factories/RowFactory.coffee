@@ -35,7 +35,7 @@ module.exports.createOfferRow = (offer) ->
     color: "#878787"
     left: "65dip"
     top: "30dip"
-    bottom: "18dip"
+    bottom: "12dip"
     right: "15dip"
     editable: false
     backgroundColor: "transparent"

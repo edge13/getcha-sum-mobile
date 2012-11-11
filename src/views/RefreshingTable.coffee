@@ -98,8 +98,7 @@ class IOSTable extends RefreshingTable
 
     @table.headerPullView = @tableHeader
 
-    @table.addEventListener "click", (e) =>
-      @onRowClicked e if @onRowClicked?
+    @table.addEventListener "click", @onRowClicked
 
     @table.addEventListener "scroll", (e) =>
       offset = e.contentOffset.y
@@ -139,6 +138,7 @@ class IOSTable extends RefreshingTable
         do @beginReloading
 
     @table.addEventListener "click", (e) =>
+      Ti.API.info "clicke vent reasda"
       @onRowClicked e if @onRowClicked?
 
     @view = @table

@@ -18,6 +18,7 @@ class OffersList extends ProgoView
         close: @popModal
         offer: e.rowData.offer
       @showModal offer.view
+      Ti.API.info "showing offer"
 
     @table.beginReloading = @onShow
 

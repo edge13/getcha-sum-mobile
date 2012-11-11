@@ -27,8 +27,8 @@ class ProgoView
     @views.push view
     @window.add view
 
-  popModal: =>
-    return if @views.length is 1
+  popModal: (e) =>
+    #return if @views.length is 1
     view = do @views.pop
     @window.remove view
 

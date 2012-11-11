@@ -73,6 +73,37 @@ class TabBar
     @rightButton.addEventListener "click", listener
     @middleButton.addEventListener "click", listener
 
+    @leftLabel = Ti.UI.createLabel
+      text: "My Offers"
+      font:
+        fontFamily: "Arvil"
+        fontSize: "14sp"
+      center:
+        x: "20%"
+      bottom: "5dp"
+
+    @middleLabel = Ti.UI.createLabel
+      text: "Offers"
+      font:
+        fontFamily: "Arvil"
+        fontSize: "14sp"
+      center:
+        x: "50%"
+      bottom: "5dp"
+
+    @rightLabel = Ti.UI.createLabel
+      text: "My Account"
+      font:
+        fontFamily: "Arvil"
+        fontSize: "14sp"
+      center:
+        x: "80%"
+      bottom: "5dp"
+
+    @tabBar.add @leftLabel
+    @tabBar.add @middleLabel
+    @tabBar.add @rightLabel
+
     @window.add @tabBar
 
   add: (progoView) ->

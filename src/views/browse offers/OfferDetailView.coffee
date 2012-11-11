@@ -73,7 +73,9 @@ class OfferDetailView extends ModalView
       else
         @accept @offer
 
-    cancelButton.addEventListener "click", @options.close
+    cancelButton.addEventListener "click", (e) =>
+      Ti.API.info "clicking close #{JSON.stringify(@options)}"
+      do @options.close
 
     @view.add offerTextArea
     @view.add offerName

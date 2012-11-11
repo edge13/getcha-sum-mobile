@@ -221,25 +221,30 @@ class CreateOfferView extends ModalView
     container = Ti.UI.createView
       width: "100%"
       height: "100%"
-      backgroundColor: "green"
+      backgroundImage: "/background.png"
 
     instruct = Ti.UI.createLabel
-      text: "Confirm your PIN"
-      top: "10dip"
+      text: "CONFIRM  YOUR PIN"
+      top: "20dip"
+      color: "white"
+      font:
+        fontFamily: "Avenir LT Std"
+        fontSize: "18dip"
 
     pin = Ti.UI.createTextField
-      width: "90%"
-      top: "30dip"
+      width: "40%"
+      top: "70dip"
       height: "50dip"
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
       font:
-        fontSize: "25sp"
+        fontFamily: "Arvil"
+        fontSize: "44dip"
       passwordMask: true
-      borderColor: "#000000"
-      borderWidth: "1dip"
+      backgroundImage: "/text-createoffername.png"
 
     pin.addEventListener "change", (event) =>
       if pin.value.length is 4
-        #show spinner
+        container.remove pin
         offer.pin = pin.value
         api.createOffer
           data: offer

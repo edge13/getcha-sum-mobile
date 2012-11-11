@@ -6,9 +6,26 @@ api = require "api"
 
 class MyOffersView extends ProgoView
   layout: ->
-    createButton = Ti.UI.createButton
-      title: "Create new offer"
-      top: "5dip"
+    createButton = Ti.UI.createImageView
+      top: 0
+      image: "/createoffer-btn.png"
+      right: 0
+
+    logo = Ti.UI.createImageView
+      image: "/logo.png"
+      left: "12dip"
+      top: "8dip"
+
+    @view.add logo
+
+    shadow = Ti.UI.createView
+      width: "100%"
+      top: "45dip"
+      height: "18dip"
+      left: 0
+      backgroundImage: "/topbar-shadow.png"
+
+    @view.add shadow
 
     createButton.addEventListener "click", (event) =>
       createView = new CreateOfferView

@@ -78,7 +78,7 @@ class AccountView extends ProgoView
           close: do =>
             @popModal
             @updateSeletions
-          cancelUrl: "http://www.dwolla.com/"
+          cancelUrl: "https://www.dwolla.com/"
           
         @showModal connect.view
     else

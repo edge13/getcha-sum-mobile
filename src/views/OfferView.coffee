@@ -1,54 +1,108 @@
 ModalView = require "ModalView"
 OfferUtil = require "OfferUtil"
 Global = require "Global"
+api = require "api"
 
 class OfferView extends ModalView
   layout: ->
-    offerNameLabel = Ti.UI.createLabel
-      text: "Offer name"
-      top: "20dp"
-      width: "100dp"
-      left: "10dp"
+    @offer = @options.offer
+    @eligible = OfferUtil.eligible Global.me, @options.offer
+    Ti.API.info "eligible=" + @eligible
 
-    eligible = OfferUtil.eligible Global.me, @options.offer
-    Ti.API.info "eligible=" + eligible
+    offerName = Ti.UI.createTextArea
+      value: @offer.name
+      top: "70dp"
+      width: "80%" 
+      height: "40dip"
+      editable: false
 
-    offerName = Ti.UI.createLabel
-      text: @options.offer.name
-      top: "20dp"
-      width: "180dp"
-      left: "140dp"
+    type = Ti.UI.createImageView
+      left: "10%"
+      top: "120dip"
+      width: "60dip"
+      height: "60dip"
+      backgroundColor: "pink"
 
-    @view.add offerNameLabel
-    @view.add offerName
+    price = Ti.UI.createImageView
+      right: "10%"
+      top: "120dip"
+      width: "60dip"
+      height: "60dip"
+      backgroundColor: "pink"
 
     offerTextArea = Ti.UI.createTextArea
       width: "80%"
-      height: "200dp"
+      height: "120dp"
       editable: false
-      value: @options.offer.content
-      top: "50dp"
-      backgroundColor: "transparent"
-
-    @view.add offerTextArea
+      value: @offer.content
+      top: "200dip"
 
     acceptButton = Ti.UI.createButton
       title: "accept"
-      left: "10%"
-      top: "300dp"
+      right: 0
+      top: 0
 
     cancelButton = Ti.UI.createButton
       title: "cancel"
+      left: 0
+      top: 0
+
+    Ti.API.info "Accepted count=" + @offer.acceptedCount
+
+    ratio = @offer.acceptedCount / @offer.cap
+
+    Ti.API.info "ratio=" + ratio
+
+    progressBar = Ti.UI.createImageView
+      left: "10%"
+      top: "340dip"
+      width: "190dip"
+      height: "30dip"
+      backgroundColor: "pink"
+
+    progressLabel = Ti.UI.createLabel
+      text: @offer.cap
       right: "10%"
-      top: "300dp"
+      top: "340dip"
 
     acceptButton.addEventListener "click", (e) =>
-      Ti.API.info "wanting to accept offerTextArea"
-      do @options.close
+      api.acceptOffer
+        id: @offer.id
+        success: (response) =>
+          @confirm @offer
 
     cancelButton.addEventListener "click", @options.close
 
+    @view.add offerTextArea
+    @view.add offerName
     @view.add acceptButton
     @view.add cancelButton
+    @view.add type
+    @view.add price
+    @view.add progressBar
+    @view.add progressLabel
+
+  confirm: (offer) ->
+    curtain = Ti.UI.createView
+      width: "100%"
+      height: "100%"
+      backgroundColor: "#55000000"
+
+    popup = Ti.UI.createView
+      width: "95%"
+      height: "150dip"
+      backgroundColor: "white"
+
+    text = Ti.UI.createLabel
+      text: "Congrats"
+
+    popup.add text
+    curtain.add popup
+    @view.add curtain
+
+    setTimeout =>
+      @view.remove curtain
+      do @options.close
+    , 3000
 
 module.exports = OfferView

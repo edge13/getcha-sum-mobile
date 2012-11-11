@@ -117,7 +117,7 @@ class RefreshingTable
         do @beginReloading
 
     @table.addEventListener "click", (e) =>
-      do @onRowClicked e if @onRowClicked?
+      @onRowClicked e if @onRowClicked?
 
 
     @view = @table

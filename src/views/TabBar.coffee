@@ -27,7 +27,7 @@ class TabBar
       hires: true
       center: 
         x: "20%"
-        y: "55%"
+        y: "50%"
 
     @leftButton.index = 0
 
@@ -36,7 +36,7 @@ class TabBar
       hires: true
       center: 
         x: "80%"
-        y: "55%"
+        y: "50%"
     @rightButton.index = 2
 
     @middleButton = Ti.UI.createImageView
@@ -44,7 +44,7 @@ class TabBar
       hires: true
       center: 
         x: "50%"
-        y: "55%"
+        y: "50%"
 
     @middleButton.index = 1
 
@@ -75,30 +75,33 @@ class TabBar
 
     @leftLabel = Ti.UI.createLabel
       text: "My Offers"
+      color: "white"
       font:
         fontFamily: "Arvil"
-        fontSize: "14sp"
+        fontSize: "12sp"
       center:
         x: "20%"
-      bottom: "5dp"
+      bottom: "4dp"
 
     @middleLabel = Ti.UI.createLabel
       text: "Offers"
+      color: "white"
       font:
         fontFamily: "Arvil"
-        fontSize: "14sp"
+        fontSize: "12sp"
       center:
         x: "50%"
-      bottom: "5dp"
+      bottom: "4dp"
 
     @rightLabel = Ti.UI.createLabel
       text: "My Account"
+      color: "white"
       font:
         fontFamily: "Arvil"
-        fontSize: "14sp"
+        fontSize: "12sp"
       center:
         x: "80%"
-      bottom: "5dp"
+      bottom: "4dp"
 
     @tabBar.add @leftLabel
     @tabBar.add @middleLabel

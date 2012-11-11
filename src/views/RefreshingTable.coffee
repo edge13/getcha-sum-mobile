@@ -9,6 +9,8 @@ formatDate = ->
 
 class RefreshingTable
   constructor: (options) ->
+    @pulling = false
+    @reloading = false
     @rowHeight = options.rowHeight
 
     border = Ti.UI.createView
@@ -20,6 +22,7 @@ class RefreshingTable
       backgroundColor: "#e2e7ed"
       width: 320
       height: 60
+      top: 0
 
     @tableHeader.add border
 
@@ -35,7 +38,7 @@ class RefreshingTable
       left: 55
       width: 200
       bottom: 30
-      height: "auto"
+      height: "20dp"
       color: "#576c89"
       textAlign: "center"
       font:
@@ -98,9 +101,6 @@ class IOSTable extends RefreshingTable
     @table.addEventListener "click", (e) =>
       do @onRowClicked e if @onRowClicked?
 
-    @pulling = false
-    @reloading = false
-
     @table.addEventListener "scroll", (e) =>
       offset = e.contentOffset.y
       if offset < -65.0 and not @pulling and not @reloading
@@ -147,7 +147,8 @@ class IOSTable extends RefreshingTable
     super()
     @table.setContentInsets({top:0},{animated:true});
 
-
+  addToView: (view) ->
+    view.add @table
   setData: (data) ->
     rows = new Array()
     for dat in data
@@ -163,30 +164,42 @@ class AndroidTable extends RefreshingTable
     super options
 
     @scrollView = Ti.UI.createScrollView
-      height: "100%"
-      width: "100%"
-      layout: "vertical"
+      top: options.top
+      bottom: options.bottom
       showVerticalScrollIndicator: false
 
-    @scrollView.add @tableHeader
-    @scrollView.scrollTo 0, 60
+    @refreshView = Ti.UI.createView
+      top: 0
+      height: "550dp"
+      backgroundColor: "transparent"
+
+    @refreshView.add @tableHeader
+
+    @scrollView.add @refreshView
 
     @view = @scrollView
 
+  addToView: (view) ->
+    view.add @scrollView
+
   setData: (data) ->
+    return if data.length is 0
     tmpView = Ti.UI.createView
+      top: 60
       height: Titanium.UI.SIZE
       width: "100%"
       layout: "vertical"
 
     for row in data
+      row.addEventListener "click", (e) =>
+        if @onRowClicked?
+          @onRowClicked
+            rowData: e.source
       tmpView.add row
 
     @scrollView.remove @rowsView if @rowsView
     @rowsView = tmpView
     @scrollView.add @rowsView
-    Ti.API.info @rowsView.height + 60
-    @scrollView.contentHeight = @rowsView.height + 60
 
     @scrollView.scrollTo 0, 60
 
@@ -195,6 +208,7 @@ class AndroidTable extends RefreshingTable
     @scrollView.addEventListener "scroll", (e) =>
       if e.y?
         @offset = e.y
+        Ti.API.info @offset
       if @offset <= 5
         t = do Ti.UI.create2DMatrix
         t = t.rotate(-180)
@@ -210,12 +224,16 @@ class AndroidTable extends RefreshingTable
         @statusLabel.text = "Pull to refresh"
 
     @scrollView.addEventListener "touchend", (e) =>
-      return unless @reloading
+      Ti.API.info @reloading
+      return if @reloading
       if @offset <= 5
+        Ti.API.info "should begin reloading"
         @reloading = true
+        @actInd.show()
         do @beginReloading
       else if @offset < 60
         @scrollView.scrollTo 0, 60
+        Ti.API.info "canceling reload"
 
   endReloading: =>
     super()

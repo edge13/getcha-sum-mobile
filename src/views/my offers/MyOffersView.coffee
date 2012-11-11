@@ -26,7 +26,7 @@ class MyOffersView extends ProgoView
       #do something?
       alert "you clicked an offer you own"
 
-    @view.add @offersTable.view
+    @offersTable.addToView @view
     @view.add createButton
 
   onShow: =>
@@ -44,7 +44,7 @@ class MyOffersView extends ProgoView
   createOfferRow: (offer) ->
     row = Ti.UI.createView
       height: "40dip"
-      
+    row.rowHeight = 40
     label = Ti.UI.createLabel
       left: "10dip"
       top: "5dip"

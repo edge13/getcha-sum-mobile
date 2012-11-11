@@ -11,7 +11,7 @@ class Api
     if Global.me? and Global.me.singlyAccessToken?
       "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&access_token=#{Global.me.singlyAccessToken}" + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
     else
-      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + api.host + "callbacks/singly/" + api.token + "&service=#{service}"
+      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
 
   login: (options) ->
     options.path = "users/login"

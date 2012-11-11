@@ -17,7 +17,7 @@ class LoginView
     @canvas = Ti.UI.createView
       width: "100%"
       height: "100%"
-      backgroundImage: "/Default.png"
+      backgroundImage: "/background.png"
 
     @container.add @canvas
 
@@ -61,20 +61,28 @@ class LoginView
 
     @password.addEventListener "return", @login
 
-    @submit = Ti.UI.createView
-      top: "273dip"
-      left: "85dip"
-      right: 0
+    @mustache = Ti.UI.createImageView
+      image: "/mustache.png"
+      left: "120dip"
+      top: "275dip"
 
-    @submit.addEventListener "click", @login
+    @logo = Ti.UI.createImageView
+      image: "/logo.png"
+      right: "20dip"
+      top: "275dip"
+
+    @logo.addEventListener "click", @login
       
     @container.add @emailBack
     @container.add @email
     @container.add @passwordBack
     @container.add @password
-    @container.add @submit
-
+    @container.add @mustache
+    @container.add @logo
     @window.add @container
+
+    @money = new Array()
+    setInterval @makeMoney, 30
 
   login: (event) =>
     Ti.API.info "Authenticating"
@@ -92,5 +100,40 @@ class LoginView
 
   show: ->
     do @window.open
+
+  makeMoney: =>
+    rand = Math.random() * 100
+    if rand > 95
+      do @makeDollar
+
+    do @updateDollars
+
+  makeDollar: =>
+    dollar = {}
+    dollar.index = Math.floor(Math.random() * 13) + 1
+    dollar.y = -10.0
+    dollar.x = 10 + Math.floor(Math.random() * 300)
+    dollar.yv = 5.5 + Math.random() * 1.0
+
+    dollar.image = Ti.UI.createImageView
+      image: "/money/dollar" + dollar.index + ".png"
+      left: dollar.x
+      top: dollar.y
+    @canvas.add dollar.image
+    @money.push dollar
+
+  updateDollars: ->
+    for dollar in @money
+      if dollar.done
+        continue
+      dollar.y += dollar.yv
+      dollar.image.top = dollar.y
+      dollar.yv *= 0.993
+      if dollar.y > Titanium.Platform.displayCaps.platformHeight
+        @canvas.remove dollar.image
+        dollar.image = undefined
+        dollar.done = true
+
+
 
 module.exports = new LoginView()

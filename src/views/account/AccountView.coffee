@@ -22,7 +22,7 @@ class AccountView extends ProgoView
 
     @buttonsView = Ti.UI.createView
       height: "400dp"
-      backgroundColor: 'purple'
+      backgroundColor: "transparent"
       width: "100%"
       top: "25dp"
 

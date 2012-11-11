@@ -19,7 +19,7 @@ class MyOffersView extends ProgoView
     @offersTable = new RefreshingTable
       top: "45dip"
       bottom: 0
-      backgroundColor: "pink"
+      backgroundColor: "transparent"
 
     @offersTable.beginReloading = @onShow
     @offersTable.onRowClicked = (e) =>

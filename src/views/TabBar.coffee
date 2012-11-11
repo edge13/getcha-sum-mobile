@@ -96,6 +96,8 @@ class TabBar
     do @views[@selectedIndex].open
     do @views[@selectedIndex].onShow
     do @window.open
+    @selectionView.center = @buttons[@selectedIndex].center
+    @selectionView.show()
 
   close: ->
     do @window.close

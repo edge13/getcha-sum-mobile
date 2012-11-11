@@ -56,6 +56,18 @@ class CreateOfferView extends ModalView
       title: "twitter"
       left: 0
 
+    @facebook = Ti.UI.createButton
+      title: "facebook"
+      left: "50dip"
+
+    @tumblr = Ti.UI.createButton
+      title: "tumblr"
+      left: "100dip"
+
+    @linkedin = Ti.UI.createButton
+      title: "linkedin"
+      left: "150dip"    
+
     @twilio = Ti.UI.createButton
       title: "twilio"
       right: 0
@@ -65,6 +77,15 @@ class CreateOfferView extends ModalView
 
     @twilio.addEventListener "click", (event) =>
       @type = "twilio"
+
+    @facebook.addEventListener "click", (event) =>
+      @type = "facebook"
+
+    @tumblr.addEventListener "click", (event) =>
+      @type = "tumblr"
+
+    @linkedin.addEventListener "click", (event) =>
+      @type = "linkedin"
 
     @submit.addEventListener "click", (event) =>
       offer = {}
@@ -81,6 +102,9 @@ class CreateOfferView extends ModalView
     container.add @content
     container.add @count
     container.add @twitter
+    container.add @facebook
+    container.add @tumblr
+    container.add @linkedin
     container.add @twilio
     container.add @submit
 

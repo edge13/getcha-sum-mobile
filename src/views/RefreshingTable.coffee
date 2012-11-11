@@ -19,7 +19,7 @@ class RefreshingTable
       bottom: 0
 
     @tableHeader = Ti.UI.createView
-      backgroundColor: "#e2e7ed"
+      backgroundImage: "background.png"
       width: 320
       height: 60
       top: 0
@@ -27,7 +27,7 @@ class RefreshingTable
     @tableHeader.add border
 
     @arrow = Ti.UI.createView
-      backgroundColor: "orange"
+      backgroundColor: "transparent"
       width: 23
       height: 60
       bottom: 10
@@ -39,11 +39,11 @@ class RefreshingTable
       width: 200
       bottom: 30
       height: "20dp"
-      color: "#576c89"
       textAlign: "center"
       font:
-        fontSize: 13
-        fontWeight: "bold"
+        fontFamily: "Arvil"
+        fontSize: "14sp"
+      color: "#d2dd26"
 
       shadowColor: "#999"
       shadowOffset:
@@ -56,10 +56,11 @@ class RefreshingTable
       width: 200
       bottom: 15
       height: "auto"
-      color: "#576c89"
       textAlign: "center"
       font:
-        fontSize: 12
+        fontFamily: "Arvil"
+        fontSize: "12sp"
+      color: "#d2dd26"
 
       shadowColor: "#999"
       shadowOffset:

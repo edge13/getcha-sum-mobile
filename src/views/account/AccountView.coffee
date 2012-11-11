@@ -209,6 +209,7 @@ class AccountView extends ProgoView
       image: "account/#{service}.png"
       hires: true
 
+    return if service is "twilio"
     if service is "dwolla"
       button.addEventListener "click", (event) =>
         connect = new ConnectView

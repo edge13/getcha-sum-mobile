@@ -15,7 +15,7 @@ class TabBar
       width: "100%"
       bottom: 0
       backgroundImage: "navBar/navbar-bg.png"
-      height: "13%"
+      height: "12%"
 
     @tabBar = Ti.UI.createView
       height: "100%"
@@ -117,10 +117,14 @@ class TabBar
       width: "80%"
       height: "40dp"
       top: "-40dp"
-      backgroundColor: "yellow"
+      backgroundImage: "notification.png"
 
     label = Ti.UI.createLabel
-      text: offer.name
+      text: "New Offer! Want to check it out?"
+      font:
+        fontFamily: "Arvil"
+        fontSize: "14sp"
+      color: "white"
 
     notificationView.add label
 

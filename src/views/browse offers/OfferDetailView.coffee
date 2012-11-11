@@ -67,10 +67,11 @@ class OfferDetailView extends ModalView
       top: "340dip"
 
     acceptButton.addEventListener "click", (e) =>
-      api.acceptOffer
-        id: @offer.id
-        success: (response) =>
-          @confirm @offer
+      if @offer.type is "twilio"
+        @showContacts =>
+          @accept @offer
+      else
+        @accept offer
 
     cancelButton.addEventListener "click", @options.close
 
@@ -82,6 +83,12 @@ class OfferDetailView extends ModalView
     @view.add price
     @view.add progressBar
     @view.add progressLabel
+
+  accept: (offer) ->
+    api.acceptOffer
+      id: offer.id
+      success: (response) =>
+        @confirm offer
 
   confirm: (offer) ->
     curtain = Ti.UI.createView
@@ -105,5 +112,44 @@ class OfferDetailView extends ModalView
       @view.remove curtain
       do @options.close
     , 3000
+
+  showContacts: (success) ->
+    if Ti.Contacts.contactsAuthorization is Ti.Contacts.AUTHORIZATION_AUTHORIZED
+      @selectContacts success
+    else if Ti.Contacts.contactsAuthorization is Ti.Contacts.AUTHORIZATION_UNKNOWN
+      Ti.Contacts.requestAuthorization (event) =>
+        if event.success
+          @selectContacts success
+        else
+          alert "Unable to access device contacts"
+          do @options.close
+
+  selectContacts: (success) ->
+    Ti.API.log "selecting contacts"
+    people = do Ti.Contacts.getAllPeople
+    Ti.API.info JSON.stringify people
+
+    contactsView = Ti.UI.createView
+      width: "100%"
+      height: "100%"
+      backgroundColor: "gray"
+
+    contactTable = Ti.UI.createTableView
+      width: "100%"
+      top: "30dip"
+      bottom: 0
+
+    submit = Ti.UI.createButton
+      top: 0
+      right: 0
+      title: "submit"
+
+    contactsView.add contactTable
+    contactsView.add submit
+    @view.add contactsView
+
+    submit.addEventListener "click", (event) =>
+      @view.remove contactsView
+      do success
 
 module.exports = OfferDetailView

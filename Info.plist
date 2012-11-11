@@ -41,7 +41,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>/fonts/Arvil_Sans.ttf</string>
-		<string>/fonts/AvenirLTStd-Heavy.otf</string>
 		<string>/fonts/AvenirLTStd-Roman.otf</string>
 	</array>
 	<key>CFBundleIconFiles</key>

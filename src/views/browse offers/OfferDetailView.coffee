@@ -10,12 +10,23 @@ class OfferDetailView extends ModalView
     Ti.API.info "eligible=" + @eligible
     ###
 
-    offerName = Ti.UI.createTextArea
-      value: @offer.name
-      top: "70dp"
-      width: "80%" 
-      height: "40dip"
-      editable: false
+    cancel = Ti.UI.createLabel
+      text: "CANCEL"
+      left: "14dip"
+      top: "14dip"
+      color: "#d2dd26"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
+
+    accept = Ti.UI.createLabel
+      text: "accept"
+      right: "14dip"
+      top: "14dip"
+      color: "#d2dd26"
+      font:
+        fontSize: "27sp"
+        fontFamily: "Arvil"
 
     type = Ti.UI.createImageView
       left: "10%"
@@ -24,65 +35,94 @@ class OfferDetailView extends ModalView
       height: "60dip"
       backgroundColor: "pink"
 
-    price = Ti.UI.createImageView
-      right: "10%"
-      top: "120dip"
-      width: "60dip"
-      height: "60dip"
-      backgroundColor: "pink"
+    price = Ti.UI.createLabel
+      top: "70dip"
+      right: "67%"
+      text: @offer.price
+      color: "#d2dd26"
+      font:
+        fontSize: "150sp"
+        fontFamily: "Arvil"
 
-    offerTextArea = Ti.UI.createTextArea
-      width: "80%"
-      height: "120dp"
-      editable: false
-      value: @offer.content
-      top: "200dip"
+    cent = Ti.UI.createImageView
+      left: "36%"
+      top: "70dip"
+      image: "/offerdetail/cent.png"
 
-    acceptButton = Ti.UI.createButton
-      title: "accept"
-      right: 0
-      top: 0
+    earnThat = Ti.UI.createLabel
+      left: "40dip"
+      top: "195dip"
+      text: "EARN THAT"
+      color: "#d82a2a"
+      font:
+        fontFamily: "Arvil"
+        fontSize: "18sp"
 
-    cancelButton = Ti.UI.createButton
-      title: "cancel"
-      left: 0
-      top: 0
-
-    ratio = @offer.acceptedCount / @offer.cap
-    widthPercent = 80 * ratio
+    progress = Math.max(1, Math.round((@offer.acceptedCount / @offer.cap) * 10))
+    
     Ti.API.info "Accepted count=" + @offer.acceptedCount
-    Ti.API.info "ratio=" + ratio
-    Ti.API.info "widthPercent=" + widthPercent
+    Ti.API.info "progress=" + progress
 
-    progressBar = Ti.UI.createImageView
-      left: "10%"
-      top: "340dip"
-      width: widthPercent + "%"
-      height: "30dip"
-      backgroundColor: "pink"
+    progressBackground = Ti.UI.createImageView
+      right: "25dip"
+      top: "70dip"
+      image: "/offerdetail/progress-bg.png"
+
+    progressImage = Ti.UI.createImageView
+      right: "25dip"
+      top: "70dip"
+      image: "/offerdetail/progress-" + progress + ".png"
+
+    setInterval ->
+      progress = Math.min(10, progress+1)
+      progressImage.image = "/offerdetail/progress-" + progress + ".png"
+    , 1000
 
     progressLabel = Ti.UI.createLabel
-      text: @offer.cap
-      right: "10%"
-      top: "340dip"
+      text: @offer.acceptedCount + " OUT OF " + @offer.cap
+      right: "40dip"
+      top: "195dip"
+      color: "#d82a2a"
+      font:
+        fontFamily: "Arvil"
+        fontSize: "18sp"
 
-    acceptButton.addEventListener "click", (e) =>
+    offerName = Ti.UI.createLabel
+      text: @offer.name
+      top: "240dip"
+      left: "25dip"
+      right: "25dip"
+      color: "#ffffff"
+
+    offerTextArea = Ti.UI.createTextArea
+      editable: false
+      value: @offer.content
+      top: "280dip"
+      left: "25dip"
+      right: "25dip"
+      color: "#999999"
+      #backgroundColor: "transparent"
+
+    accept.addEventListener "click", (e) =>
       if @offer.type is "twilio"
         @showContacts (phoneNumbers) =>
           @accept @offer, phoneNumbers
       else
         @accept @offer
 
-    cancelButton.addEventListener "click", @options.close
+    cancel.addEventListener "click", @options.close
 
-    @view.add offerTextArea
-    @view.add offerName
-    @view.add acceptButton
-    @view.add cancelButton
-    @view.add type
+    @view.add accept
+    @view.add cancel
+    #@view.add type
+    @view.add cent
     @view.add price
-    @view.add progressBar
+    @view.add earnThat
+    @view.add progressBackground
+    @view.add progressImage
     @view.add progressLabel
+    @view.add offerName
+    @view.add offerTextArea
 
   accept: (offer, phoneNumbers) ->
     options = 
@@ -121,7 +161,8 @@ class OfferDetailView extends ModalView
     if Ti.Platform.osname is "iphone"
       Ti.Contacts.showContacts
         fields: ["phone"]
-        selectedProperty: (event) ->
+        selectedProperty: (event) =>
+          @chooseContact success, event.value
           Ti.API.info JSON.stringify event
     else
       Ti.Contacts.showContacts
@@ -157,18 +198,5 @@ class OfferDetailView extends ModalView
       success phones
     else
       alert "There was a problem loading contact phone"
-    ###
-    if Ti.Contacts.contactsAuthorization is Ti.Contacts.AUTHORIZATION_AUTHORIZED
-      @selectContacts success
-    else if Ti.Contacts.contactsAuthorization is Ti.Contacts.AUTHORIZATION_UNKNOWN
-      Ti.Contacts.requestAuthorization (event) =>
-        Ti.API.info "contacts requested: result=" + JSON.stringify event
-        if event.success
-          @selectContacts success
-        else
-          alert "Unable to access device contacts"
-          do @options.close
-    ###
-  
 
 module.exports = OfferDetailView

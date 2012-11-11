@@ -32,6 +32,7 @@ class AccountView extends ProgoView
     @linkedin = @buttonForService "linkedin", 3
     @tumblr = @buttonForService "tumblr", 4
 
+
     @buttonsView.add @facebook
     @buttonsView.add @dwolla
     @buttonsView.add @twitter
@@ -74,8 +75,8 @@ class AccountView extends ProgoView
     if service is "dwolla"
       button.addEventListener "click", (event) =>
         connect = new connectView
-          url: "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + api.host + "callbacks/dwolla/" + api.token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
-          close: =>
+          url: do api.buildDwollaUrl
+          close: do =>
             @popModal
             @updateSeletions
           cancelUrl: "http://www.dwolla.com/"

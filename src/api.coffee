@@ -7,11 +7,14 @@ class Api
     @dwollaId = "ApS2lLgIfKNXE4BbkuMS3rSs40XyEXvFqlc72nqJ9kTm7Tmrm6"
     @singlyId = "54e441cddf0c4c2cf1bc54de317913df"
 
+  buildDwollaUrl: ->
+    "https://www.dwolla.com/oauth/v2/authenticate?client_id=" + @dwollaId + "&response_type=code&redirect_uri=" + @host + "callbacks/dwolla/" + @token + "&scope=Send|Transactions|Balance|Request|AccountInfoFull"
+
   buildSinglyUrlForService: (service) ->
     if Global.me? and Global.me.singlyAccessToken?
       "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&access_token=#{Global.me.singlyAccessToken}" + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
     else
-      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + api.host + "callbacks/singly/" + api.token + "&service=#{service}"
+      "https://api.singly.com/oauth/authenticate?client_id=" + @singlyId + "&redirect_uri=" + @host + "callbacks/singly/" + @token + "&service=#{service}"
 
   login: (options) ->
     options.path = "users/login"
